@@ -16,27 +16,29 @@ import {
 
 import styles from "./styles";
 
+
 class Details extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            uri: null
+            url: null
         };
     }
 
     componentDidMount() {
-        // TODO redirect on uri not defined
-        let uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + 'http://www.africau.edu/images/default/sample.pdf';
+        // TODO redirect on url not defined
+        let url = 'https://www.goulelhom.org/';
         if (this.props.navigation.state.params !== undefined)
-            uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + this.props.navigation.state.params.uri;
+            url = this.props.navigation.state.params.url;
         this.setState({
-            uri
+            url
         })
     }
 
     render() {
-        if (this.state.uri === null) {
+        console.log(this.state)
+        if (this.state.url === null) {
             return (
                 <View style={{
                     flex: 1,
@@ -52,20 +54,25 @@ class Details extends Component {
             <Container style={styles.container}>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate('Reports')}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Press')}>
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Report Reader</Title>
+                    <Title>Read Article</Title>
                     </Body>
                     <Right/>
                 </Header>
                 <View style={{flex: 1}}>
                     <WebView
-                        bounces={false}
-                        scrollEnabled={false}
-                        source={{ uri: this.state.uri }} />
+                        source={{
+                            uri: this.state.url,
+                        }}
+                        startInLoadingState
+                        scalesPageToFit
+                        javaScriptEnabled
+                        style={{ flex: 1 }}
+                    />
                 </View>
             </Container>
         );

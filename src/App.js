@@ -16,6 +16,9 @@ import EventsDetails from './screens/events/details'
 import Reports from './screens/reports'
 import ReportsDetails from './screens/reports/details'
 
+import Press from './screens/press'
+import PressDetails from './screens/press/details'
+
 import Settings from './screens/settings'
 import UserSettings from './screens/settings/user'
 
@@ -31,11 +34,13 @@ const Drawer = DrawerNavigator(
         EventsDetails: {screen: EventsDetails},
         Reports: {screen: Reports},
         ReportsDetails: {screen: ReportsDetails},
+        Press: {screen: Press},
+        PressDetails: {screen: PressDetails},
         Settings: {screen: Settings},
         UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "ReportsDetails",
+        initialRouteName: "Press",
         contentOptions: {
             activeTintColor: "#e91e63"
         },

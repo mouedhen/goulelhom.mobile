@@ -21,7 +21,7 @@ import {apiUrl} from "../../config";
 
 import moment from 'moment'
 
-class Reports extends Component {
+class Press extends Component {
 
     constructor(props) {
         super(props);
@@ -29,29 +29,66 @@ class Reports extends Component {
             modalVisible: true,
             active: false,
             records: [],
+            noRecords: false,
         };
     }
+
     getRecords() {
-        return fetch(apiUrl + 'reports')
+        return fetch(apiUrl + 'press')
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
-                    records: responseJson.data.map(event => {
+                    records: responseJson.data.map(record => {
+                        let cover = null;
+                        if (record.attachments.length > 0) {
+                            cover = record.attachments[0];
+                        }
                         return {
-                            ...event,
+                            ...record,
+                            cover,
                             props: this.props
                         }
                     }),
+                    noRecords: (responseJson.data.length < 1)
                 })
             })
             .catch(e => e)
     }
+
     componentDidMount() {
         this.getRecords();
     }
 
     render() {
+        if (this.state.noRecords) {
+            return (
+                <Container>
+                    <Header hasTabs>
+                        <Left>
+                            <Button
+                                transparent
+                                onPress={() => this.props.navigation.navigate("DrawerOpen")}
+                            >
+                                <Icon name="ios-menu"/>
+                            </Button>
+                        </Left>
+                        <Body>
+                        <Title>Press</Title>
+                        </Body>
+                        <Right/>
+                    </Header>
+                    <View style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
+                        <Text style={{marginTop: 10, color: '#555'}}>No article until now, come back later...</Text>
+                    </View>
+                </Container>
+            )
+        }
         return (
             <Container>
                 <Header hasTabs>
@@ -64,7 +101,7 @@ class Reports extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Reports</Title>
+                    <Title>Press</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -75,12 +112,11 @@ class Reports extends Component {
                             <CardItem>
                                 <Body>
                                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                                    {data.title}
+                                    {data.name}
                                 </Text>
-                                <Text note>Date : {moment(data.published_at).format("L")}</Text>
-                                {data.thumb_uri ? (
+                                {data.cover ? (
                                     <Image
-                                        source={{uri: data.thumb_uri}}
+                                        source={{uri: data.cover.uri}}
                                         style={{
                                             backgroundColor: '#9d9d9d',
                                             height: 400,
@@ -96,7 +132,7 @@ class Reports extends Component {
                                 </Text>
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                        onPress={() => data.props.navigation.navigate('ReportsDetails', {uri: data.document_uri})}>
+                                        onPress={() => data.props.navigation.navigate('PressDetails', {url: data.url})}>
                                     <Text style={{color: '#F2F2F2'}}>READ REPORT</Text>
                                 </Button>
                                 </Body>
@@ -109,4 +145,4 @@ class Reports extends Component {
     }
 }
 
-export default Reports;
+export default Press;
