@@ -19,9 +19,7 @@ import {
 import {ApiUtils} from '../../helpers/network'
 import {apiUrl} from "../../config";
 
-// const Realm = require('realm');
-
-// import {UserSchema, SettingsSchema} from '../../schemas'
+import {AsyncStorage} from "react-native"
 
 class UserForm extends Component {
 
@@ -33,28 +31,59 @@ class UserForm extends Component {
             phone_number: '',
             email: '',
             address: '',
-            realm: null,
+            loading: false,
         }
     }
 
     componentWillMount() {
-        // Realm.open({
-        //     schema: [UserSchema, SettingsSchema],
-        //     schemaVersion: 3,
-        //     migration: function (oldRealm, newRealm) {
-        //         newRealm.deleteAll();
-        //     }
-        // }).then(realm => {
-        //     let savedUser = realm.objects('Users').slice(0, 1)[0];
-        //     this.setState({
-        //         realm,
-        //         id: (savedUser ? savedUser.id : -1),
-        //         name: (savedUser ? savedUser.name : ''),
-        //         phone_number: (savedUser ? savedUser.phone_number : ''),
-        //         email: (savedUser ? savedUser.email : ''),
-        //         address: (savedUser ? savedUser.address : ''),
-        //     });
-        // });
+        this.getUserData();
+            console.log(this.state)
+    }
+
+    storeUserData(user) {
+        AsyncStorage.setItem('@User:id', String(user.id));
+        AsyncStorage.setItem('@User:name', String(user.name));
+        AsyncStorage.setItem('@User:phone_number', String(user.phone_number));
+        AsyncStorage.setItem('@User:email', String(user.email));
+        AsyncStorage.setItem('@User:address', String(user.address));
+    }
+
+    getUserData() {
+        AsyncStorage.getItem('@User:id')
+            .then((id) => {
+                if (id !== null)
+                    this.setState({
+                        id: parseInt(id),
+                    });
+            });
+        AsyncStorage.getItem('@User:name')
+            .then((name) => {
+                if (name !== null)
+                    this.setState({
+                        name: (name !== 'null' && name !== 'undefined' ? name : null),
+                    });
+            });
+        AsyncStorage.getItem('@User:phone_number')
+            .then((phone_number) => {
+                if (phone_number !== null)
+                    this.setState({
+                        phone_number: (phone_number !== 'null' && phone_number !== 'undefined' ? phone_number : null),
+                    });
+            });
+        AsyncStorage.getItem('@User:email')
+            .then((email) => {
+                if (email !== null)
+                    this.setState({
+                        email: (email !== 'null' && email !== 'undefined' ? email : null),
+                    });
+            });
+        AsyncStorage.getItem('@User:address')
+            .then((address) => {
+                if (address !== null)
+                    this.setState({
+                        address: (address !== 'null' && address !== 'undefined' ? address : null),
+                    });
+            });
     }
 
     submitUser() {
@@ -75,16 +104,8 @@ class UserForm extends Component {
                 .then(ApiUtils.checkStatus)
                 .then(response => response.json())
                 .then(responseJson => {
-                    // this.state.realm.write(() => {
-                    //     this.state.realm.create('Users', {
-                    //         id: (responseJson.data.id ? responseJson.data.id : -1),
-                    //         name: (responseJson.data.name ? responseJson.data.name : ''),
-                    //         email: (responseJson.data.email ? responseJson.data.email : ''),
-                    //         phone_number: (responseJson.data.phone_number ? responseJson.data.phone_number : ''),
-                    //         address: (responseJson.data.address ? responseJson.data.address : ''),
-                    //     });
-                    // });
-                    this.props.navigation.navigate('Settings')
+                    this.storeUserData(responseJson.data);
+                    this.props.navigation.goBack(null)
                 })
                 .catch(e => {
                     console.log(e)
@@ -106,15 +127,8 @@ class UserForm extends Component {
                 .then(ApiUtils.checkStatus)
                 .then(response => response.json())
                 .then(responseJson => {
-                    // this.state.realm.write(() => {
-                    //     let savedUser = this.state.realm.objects('Users').slice(0, 1)[0];
-                    //     savedUser.id = (responseJson.data.id ? responseJson.data.id : -1);
-                    //     savedUser.name = (responseJson.data.name ? responseJson.data.name : '');
-                    //     savedUser.email = (responseJson.data.email ? responseJson.data.email : '');
-                    //     savedUser.phone_number = (responseJson.data.phone_number ? responseJson.data.phone_number : '');
-                    //     savedUser.address = (responseJson.data.address ? responseJson.data.address : '');
-                    // });
-                    this.props.navigation.navigate('Settings')
+                    this.storeUserData(responseJson.data);
+                    this.props.navigation.goBack(null)
                 })
                 .catch(e => {
                     console.log(e)
@@ -127,7 +141,9 @@ class UserForm extends Component {
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => {this.props.navigation.navigate('Settings')}}>
+                        <Button transparent onPress={() => {
+                            this.props.navigation.goBack(null)
+                        }}>
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>

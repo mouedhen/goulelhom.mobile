@@ -6,7 +6,9 @@ import SideBar from './screens/sidebar'
 import Home from './screens/home'
 import Complains from './screens/complains'
 import ComplainsDetails from './screens/complains/complains-details'
+import ComplainsForm from './screens/complains/form'
 import Settings from './screens/settings'
+import UserSettings from './screens/settings/user'
 
 import {NetInfo, Alert} from "react-native";
 
@@ -15,11 +17,12 @@ const Drawer = DrawerNavigator(
         Home: {screen: Home},
         Complains: {screen: Complains},
         ComplainsDetails: {screen: ComplainsDetails},
-        // Complain Form
+        ComplainsForm: {screen: ComplainsForm},
         Settings: {screen: Settings},
+        UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "Settings",
+        initialRouteName: "ComplainsForm",
         contentOptions: {
             activeTintColor: "#e91e63"
         },

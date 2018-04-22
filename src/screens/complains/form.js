@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {
+    View,
+    Spinner,
     Container,
     Header,
     Title,
@@ -28,7 +30,7 @@ import MapView from 'react-native-maps';
 import styles from "./styles";
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
-import {Dimensions} from "react-native";
+import {Dimensions, AsyncStorage} from "react-native";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -36,9 +38,6 @@ const LATITUDE = 36.8189700;
 const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-const Realm = require('realm');
-import {UserSchema, SettingsSchema} from '../../schemas'
 
 class ComplainsFrom extends Component {
     constructor(props) {
@@ -61,6 +60,7 @@ class ComplainsFrom extends Component {
             videos: [],
             municipalities: [],
             themes: [],
+            loading: false,
         };
     }
 
@@ -72,13 +72,6 @@ class ComplainsFrom extends Component {
     }
 
     submitComplain() {
-
-        this.state.images.forEach(attachment => {
-            this.uploadComplainsAttachment(1, attachment)
-        })
-
-        return
-
         let complain = {
             contact_id: this.state.contact_id,
             theme_id: this.state.theme_id,
@@ -88,7 +81,7 @@ class ComplainsFrom extends Component {
             latitude: this.state.region.latitude,
             longitude: this.state.region.longitude,
         };
-        console.log(complain)
+        this.setState({loading: true});
         return fetch(apiUrl + 'complains', {
             method: 'post',
             headers: {
@@ -101,10 +94,15 @@ class ComplainsFrom extends Component {
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson)
+                this.state.images.forEach(attachment => {
+                    this.uploadComplainsAttachment(responseJson.data.id, attachment)
+                })
                 // this.props.navigation.navigate('Settings')
+                this.setState({loading: false});
             })
             .catch(e => {
-                console.log(e)
+                console.log(e);
+                this.setState({loading: false});
             })
     }
 
@@ -131,19 +129,15 @@ class ComplainsFrom extends Component {
     }
 
     getUserId() {
-        Realm.open({
-            schema: [UserSchema, SettingsSchema],
-            schemaVersion: 3,
-            migration: function (oldRealm, newRealm) {
-                newRealm.deleteAll();
-            }
-        }).then(realm => {
-            let savedUser = realm.objects('Users').slice(0, 1)[0];
-            this.setState({
-                realm,
-                contact_id: (savedUser ? savedUser.id : -1),
+        AsyncStorage.getItem('@User:id')
+            .then((id) => {
+                if (id !== null)
+                    this.setState({
+                        contact_id: parseInt(id),
+                    });
+                else
+                    this.props.navigation.navigate('UserSettings')
             });
-        });
     }
 
     locateUser() {
@@ -260,6 +254,18 @@ class ComplainsFrom extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return (
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Spinner color='#c0392b'/>
+                    <Text>Loading...</Text>
+                </View>
+            )
+        }
         return (
             <Container style={styles.container}>
                 <Header>

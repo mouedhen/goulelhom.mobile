@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {
+    View,
+    Spinner,
     Container,
     Header,
     Title,
@@ -16,63 +18,52 @@ import {
     Separator,
 } from "native-base";
 
-// import {UserSchema, SettingsSchema} from '../../schemas'
+import {AsyncStorage} from "react-native"
 
 class Settings extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            realm: null,
-            lang: 'en',
             geoLocate: true,
             name: '',
         };
     }
 
-    componentWillMount() {
-        // Realm.open({
-        //     schema: [UserSchema, SettingsSchema],
-        //     schemaVersion: 3,
-        //     migration: function (oldRealm, newRealm) {
-        //         newRealm.deleteAll();
-        //     }
-        // }).then(realm => {
-        //     realm.write(() => {
-        //         if (realm.objects('Settings').length < 1) {
-        //             realm.create('Settings', {geoLocate: true, lang: 'en'});
-        //         }
-        //         let settings = realm.objects('Settings').slice(0, 1)[0];
-        //         let savedUser = realm.objects('Users').slice(0, 1)[0];
-        //         this.setState({
-        //             realm,
-        //             lang: settings.lang,
-        //             geoLocate: settings.geoLocate,
-        //             name: (savedUser ? savedUser.name : ''),
-        //         });
-        //     });
-        // });
+    getName() {
+        AsyncStorage.getItem('@User:name')
+            .then(name => {
+                if (name !== null) {
+                    this.setState({
+                        name,
+                    });
+                }
+            })
     }
 
-    switchLang(value) {
-        // this.state.realm.write(() => {
-        //     let settings = this.state.realm.objects('Settings').slice(0, 1)[0];
-        //     settings.lang = value;
-        //     this.setState({
-        //         lang: value
-        //     });
-        // });
+    getIsGeoLocalisable() {
+        AsyncStorage.getItem('@Settings:geoLocate')
+            .then(geoLocate => {
+                if (geoLocate !== null) {
+                    this.setState({
+                        geoLocate: (geoLocate === "true"),
+                    });
+                }
+            })
+    }
+
+    componentWillMount() {
+        this.getName();
+        this.getIsGeoLocalisable();
     }
 
     changeGeoLocate(value) {
-        // console.log(this.state)
-        // this.state.realm.write(() => {
-        //     let settings = this.state.realm.objects('Settings').slice(0, 1)[0];
-        //     settings.geoLocate = value;
-        //     this.setState({
-        //         geoLocate: value
-        //     });
-        // });
+        AsyncStorage.setItem('@Settings:geoLocate', String(value))
+            .then(() => {
+                this.setState({
+                    geoLocate: value,
+                });
+            })
     }
 
     render() {
