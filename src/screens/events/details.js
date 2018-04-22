@@ -16,7 +16,7 @@ import {
     Content,
     Spinner,
 } from "native-base";
-import MapView from 'react-native-maps';
+import { MapView } from 'expo';
 
 import styles from "./styles";
 
@@ -30,12 +30,14 @@ const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class ComplainsDetails extends Component {
+import moment from 'moment'
+
+class Details extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            complain: null,
+            record: null,
             haveAttachments: false,
             region: {
                 latitude: LATITUDE,
@@ -47,12 +49,12 @@ class ComplainsDetails extends Component {
     }
 
     getComplain(id) {
-        return fetch(apiUrl + 'complains/' + id)
+        return fetch(apiUrl + 'events/' + id)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({
-                    complain: {
+                    record: {
                         ...responseJson.data,
                     },
                     region: {
@@ -76,7 +78,7 @@ class ComplainsDetails extends Component {
     }
 
     render() {
-        if (this.state.complain === null) {
+        if (this.state.record === null) {
             return (
                 <View style={{
                     flex: 1,
@@ -92,25 +94,23 @@ class ComplainsDetails extends Component {
             <Container style={styles.container}>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate('Complains')}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Events')}>
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Complain Details</Title>
+                    <Title>Event Details</Title>
                     </Body>
                     <Right/>
                 </Header>
 
-
                 <Content style={{padding: 20}}>
-                    <H1>{this.state.complain.subject}</H1>
-                    <Text note>{this.state.complain.municipality.name}</Text>
-                    <Text note>{this.state.complain.theme.name}</Text>
+                    <H1>{this.state.record.title}</H1>
+                    <Text note>Date : {moment(this.state.record.start_date).format('L')}</Text>
                     {this.state.haveAttachments ? (
                         <View style={{height: 320}}>
                             <DeckSwiper
-                                dataSource={this.state.complain.attachments}
+                                dataSource={this.state.record.attachments}
                                 renderItem={item =>
                                     <Image
                                         source={{uri: item.uri}}
@@ -125,7 +125,7 @@ class ComplainsDetails extends Component {
                             />
                         </View>
                     ) : null}
-                    <Text>{this.state.complain.description}</Text>
+                    <Text>{this.state.record.description}</Text>
                     <MapView
                         style={{...styles.mapForm, marginTop: 10}}
                         showsUserLocation={true}
@@ -147,4 +147,4 @@ class ComplainsDetails extends Component {
     }
 }
 
-export default ComplainsDetails;
+export default Details;

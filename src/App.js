@@ -5,8 +5,10 @@ import {StackNavigator, DrawerNavigator} from 'react-navigation'
 import SideBar from './screens/sidebar'
 import Home from './screens/home'
 import Complains from './screens/complains'
-import ComplainsDetails from './screens/complains/complains-details'
+import ComplainsDetails from './screens/complains/details'
 import ComplainsForm from './screens/complains/form'
+import Events from './screens/events'
+import EventsDetails from './screens/events/details'
 import Settings from './screens/settings'
 import UserSettings from './screens/settings/user'
 
@@ -18,11 +20,13 @@ const Drawer = DrawerNavigator(
         Complains: {screen: Complains},
         ComplainsDetails: {screen: ComplainsDetails},
         ComplainsForm: {screen: ComplainsForm},
+        Events: {screen: Events},
+        EventsDetails: {screen: EventsDetails},
         Settings: {screen: Settings},
         UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "ComplainsForm",
+        initialRouteName: "Events",
         contentOptions: {
             activeTintColor: "#e91e63"
         },

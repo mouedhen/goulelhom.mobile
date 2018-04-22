@@ -18,7 +18,7 @@ import {
     Card,
     CardItem,
 } from "native-base";
-import MapView from 'react-native-maps';
+import { MapView } from 'expo';
 
 import styles from "./styles";
 

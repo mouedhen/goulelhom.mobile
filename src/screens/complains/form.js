@@ -24,8 +24,10 @@ import {
     Col,
 } from "native-base";
 
-import ImagePicker from 'react-native-image-picker';
-import MapView from 'react-native-maps';
+// import ImagePicker from 'react-native-image-picker';
+import {ImagePicker} from 'expo'
+//import MapView from 'react-native-maps';
+import {MapView} from 'expo';
 
 import styles from "./styles";
 import {ApiUtils} from "../../helpers/network";
@@ -93,15 +95,13 @@ class ComplainsFrom extends Component {
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
-                console.log(responseJson)
                 this.state.images.forEach(attachment => {
                     this.uploadComplainsAttachment(responseJson.data.id, attachment)
-                })
-                // this.props.navigation.navigate('Settings')
+                });
                 this.setState({loading: false});
+                this.props.navigation.navigate('ComplainsDetails', {id: responseJson.data.id})
             })
             .catch(e => {
-                console.log(e);
                 this.setState({loading: false});
             })
     }
@@ -109,10 +109,14 @@ class ComplainsFrom extends Component {
     uploadComplainsAttachment(id, attachment) {
         const data = new FormData();
         const url = apiUrl + 'complains/' + id + '/upload';
+        let uri = attachment.uri;
+        let uriParts = uri.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+
         data.append('file', {
             uri: attachment.uri,
-            type: attachment.type,
-            name: attachment.fileName,
+            name: `photo.${fileType}`,
+            type: `image/${fileType}`,
         });
         fetch(url, {
             method: 'post',
@@ -122,9 +126,9 @@ class ComplainsFrom extends Component {
             },
             body: data
         }).then(res => {
-            console.log(res)
+            // console.log(res)
         }).catch(e => {
-            console.log(e)
+            // console.log(e)
         });
     }
 
@@ -152,7 +156,9 @@ class ComplainsFrom extends Component {
                     },
                 });
             },
-            (error) => console.log(error.message),
+            (error) => {
+                // console.log(error.message)
+            },
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
         );
     }
@@ -194,62 +200,19 @@ class ComplainsFrom extends Component {
             .catch(e => e)
     }
 
-    addPhoto() {
-        const options = {
-            quality: 1.0,
-            maxWidth: 500,
-            maxHeight: 500,
-            storageOptions: {
-                skipBackup: true
-            }
-        };
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled photo picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                // let source = response;
-                this.setState({
-                    images: this.state.images.concat([response])
-                })
-            }
+    attachFromGallery() {
+        ImagePicker.launchImageLibraryAsync({allowsEditing: false,}).then(response => {
+            this.setState({
+                images: this.state.images.concat([response])
+            })
         });
     }
 
-    addVideo() {
-        const options = {
-            title: 'Video Picker',
-            takePhotoButtonTitle: 'Take Video...',
-            mediaType: 'video',
-            videoQuality: 'medium'
-        };
-
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled video picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                // let source = {uri: response.uri};
-                this.setState({
-                    images: this.state.images.concat([response])
-                })
-            }
+    attachFromCamera() {
+        ImagePicker.launchCameraAsync({allowsEditing: false,}).then(response => {
+            this.setState({
+                images: this.state.images.concat([response])
+            })
         });
     }
 
@@ -325,14 +288,14 @@ class ComplainsFrom extends Component {
                         <Grid style={{marginTop: 10}}>
                             <Col>
                                 <Button full light iconLeft
-                                        onPress={this.addPhoto.bind(this)}>
+                                        onPress={this.attachFromGallery.bind(this)}>
                                     <Icon name='images'/>
                                 </Button>
                             </Col>
                             <Col>
                                 <Button full light iconLeft
-                                        onPress={this.addVideo.bind(this)}>
-                                    <Icon name='film'/>
+                                        onPress={this.attachFromCamera.bind(this)}>
+                                    <Icon name='camera'/>
                                 </Button>
                             </Col>
                         </Grid>

@@ -17,12 +17,12 @@ const drawerCover = require("../../../assets/static/bg.png");
 const drawerImage = require("../../../assets/static/icon.png");
 
 const data = [
-    {
-        name: "Home",
-        route: "Home",
-        icon: "home",
-        bg: "#f2f2f2"
-    },
+    // {
+    //     name: "Home",
+    //     route: "Home",
+    //     icon: "home",
+    //     bg: "#f2f2f2"
+    // },
     {
         name: "Complains",
         route: "Complains",
