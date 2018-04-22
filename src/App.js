@@ -3,12 +3,19 @@ import {Root} from 'native-base'
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
 
 import SideBar from './screens/sidebar'
+
 import Home from './screens/home'
+
 import Complains from './screens/complains'
 import ComplainsDetails from './screens/complains/details'
 import ComplainsForm from './screens/complains/form'
+
 import Events from './screens/events'
 import EventsDetails from './screens/events/details'
+
+import Reports from './screens/reports'
+import ReportsDetails from './screens/reports/details'
+
 import Settings from './screens/settings'
 import UserSettings from './screens/settings/user'
 
@@ -22,11 +29,13 @@ const Drawer = DrawerNavigator(
         ComplainsForm: {screen: ComplainsForm},
         Events: {screen: Events},
         EventsDetails: {screen: EventsDetails},
+        Reports: {screen: Reports},
+        ReportsDetails: {screen: ReportsDetails},
         Settings: {screen: Settings},
         UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "Events",
+        initialRouteName: "ReportsDetails",
         contentOptions: {
             activeTintColor: "#e91e63"
         },
