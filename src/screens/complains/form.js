@@ -33,6 +33,8 @@ import styles from "./styles";
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 import {Dimensions, AsyncStorage} from "react-native";
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -41,6 +43,7 @@ const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+@translate(['complains', 'common'], {wait: true})
 class ComplainsFrom extends Component {
     constructor(props) {
         super(props);
@@ -63,14 +66,18 @@ class ComplainsFrom extends Component {
             municipalities: [],
             themes: [],
             loading: false,
+            lang: 'en'
         };
     }
 
     componentDidMount() {
-        this.getMunicipalities().catch(e => e);
-        this.getThemes().catch(e => e);
-        this.locateUser();
-        this.getUserId();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getMunicipalities().catch(e => e);
+            this.getThemes().catch(e => e);
+            this.locateUser();
+            this.getUserId();
+        });
     }
 
     submitComplain() {
@@ -84,7 +91,7 @@ class ComplainsFrom extends Component {
             longitude: this.state.region.longitude,
         };
         this.setState({loading: true});
-        return fetch(apiUrl + 'complains', {
+        return fetch(apiUrl + 'complains?lang=' + this.state.lang, {
             method: 'post',
             headers: {
                 Accept: 'application/json',
@@ -108,7 +115,7 @@ class ComplainsFrom extends Component {
 
     uploadComplainsAttachment(id, attachment) {
         const data = new FormData();
-        const url = apiUrl + 'complains/' + id + '/upload';
+        const url = apiUrl + 'complains/' + id + '/upload?lang=' + this.state.lang;
         let uri = attachment.uri;
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
@@ -175,7 +182,7 @@ class ComplainsFrom extends Component {
     }
 
     async getMunicipalities() {
-        return fetch(apiUrl + 'municipalities')
+        return fetch(apiUrl + 'municipalities?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -188,7 +195,7 @@ class ComplainsFrom extends Component {
     }
 
     async getThemes() {
-        return fetch(apiUrl + 'themes')
+        return fetch(apiUrl + 'themes?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -217,6 +224,7 @@ class ComplainsFrom extends Component {
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.loading) {
             return (
                 <View style={{
@@ -225,7 +233,7 @@ class ComplainsFrom extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -238,7 +246,7 @@ class ComplainsFrom extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>New Complain</Title>
+                    <Title>{t('complains:form.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -246,7 +254,7 @@ class ComplainsFrom extends Component {
                 <Content>
                     <Form>
                         <Item floatingLabel>
-                            <Label>Subject</Label>
+                            <Label>{t('complains:form.subject')}</Label>
                             <Input
                                 onChangeText={(subject) => this.setState({subject})}
                                 value={this.state.subject}
@@ -254,7 +262,7 @@ class ComplainsFrom extends Component {
                         </Item>
                         <Picker
                             mode="dialog"
-                            placeholder="Theme"
+                            placeholder={t('complains:form.theme')}
                             note={false}
                             selectedValue={this.state.theme_id}
                             onValueChange={(theme_id) => this.setState({theme_id})}
@@ -266,7 +274,7 @@ class ComplainsFrom extends Component {
                         </Picker>
                         <Picker
                             mode="dialog"
-                            placeholder="Municipality"
+                            placeholder={t('complains:form.municipality')}
                             note={false}
                             selectedValue={this.state.municipality_id}
                             onValueChange={(municipality_id) => this.setState({municipality_id})}
@@ -277,7 +285,7 @@ class ComplainsFrom extends Component {
                             })}
                         </Picker>
                         <Item floatingLabel>
-                            <Label>Description</Label>
+                            <Label>{t('complains:form.description')}</Label>
                             <Input
                                 onChangeText={(description) => this.setState({description})}
                                 value={this.state.description}
@@ -320,7 +328,7 @@ class ComplainsFrom extends Component {
                         <Button primary
                                 style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                 onPress={this.submitComplain.bind(this)}>
-                            <Text style={{color: '#F2F2F2'}}>SUBMIT COMPLAIN</Text>
+                            <Text style={{color: '#F2F2F2'}}>{t('complains:form.submit')}</Text>
                         </Button>
                     </Form>
 

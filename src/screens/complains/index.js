@@ -18,12 +18,14 @@ import {
     Card,
     CardItem,
 } from "native-base";
-import { MapView } from 'expo';
+import {MapView} from 'expo';
 
 import styles from "./styles";
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
+import {translate, I18n} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -32,6 +34,7 @@ const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+@translate(['complains', 'common'], {wait: true})
 class Complains extends Component {
 
     constructor(props) {
@@ -48,10 +51,12 @@ class Complains extends Component {
                 longitudeDelta: LONGITUDE_DELTA,
             },
             noRecords: false,
+            lang: 'en'
         };
     }
+
     getComplains() {
-        return fetch(apiUrl + 'complains')
+        return fetch(apiUrl + 'complains?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -84,10 +89,16 @@ class Complains extends Component {
             })
             .catch(e => e)
     }
+
     componentDidMount() {
-        this.getComplains();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getComplains();
+        });
     }
+
     render() {
+        const {t} = this.props;
         return (
             <Container>
                 <Header hasTabs>
@@ -100,7 +111,7 @@ class Complains extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Complains</Title>
+                    <Title>{t('complains:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -131,7 +142,7 @@ class Complains extends Component {
 
                             <Button style={styles.button} full Info
                                     onPress={() => this.props.navigation.navigate('ComplainsForm')}>
-                                <Text>Add Complain</Text>
+                                <Text>{t('complains:index.action')}</Text>
                             </Button>
                         </View>
                     </Tab>
@@ -147,8 +158,7 @@ class Complains extends Component {
                                 alignItems: 'center'
                             }}>
                                 <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
-                                <Text style={{marginTop: 10, color: '#555'}}>No complains until now, come back
-                                    later...</Text>
+                                <Text style={{marginTop: 10, color: '#555'}}>{t('complains:index.noComplains')}</Text>
                             </View>
                         ) : (
                             <Content style={{backgroundColor: '#f2f2f2', padding: 10}}>
@@ -180,7 +190,7 @@ class Complains extends Component {
                                             <Button primary
                                                     style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                                     onPress={() => data.props.navigation.navigate('ComplainsDetails', {id: data.id})}>
-                                                <Text style={{color: '#F2F2F2'}}>DETAILS</Text>
+                                                <Text style={{color: '#F2F2F2'}}>{t('common:details')}</Text>
                                             </Button>
                                             </Body>
                                         </CardItem>

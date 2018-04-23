@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { ImageBackground, View, StatusBar, Image } from "react-native";
 import { Container, Button, H3, Text } from "native-base";
 
+import { translate } from 'react-i18next';
+
 import styles from "./styles";
 
 const launchScreenBg = require("../../../assets/static/images/slider/slide_0.png");
 const launchScreenLogo = require("../../../assets/static/images/logo.png");
 
+
+@translate(['home', 'common'], { wait: true })
 class Home extends Component {
 
     accessToApplication() {
@@ -14,6 +18,7 @@ class Home extends Component {
     }
 
     render() {
+        const { t, i18n, navigation } = this.props;
         return (
             <Container>
                 <StatusBar barStyle="light-content" />
@@ -28,10 +33,11 @@ class Home extends Component {
                         style={{
                             alignItems: "center",
                             marginBottom: 50,
-                            backgroundColor: "transparent"
+                            backgroundColor: "transparent",
+                            paddingHorizontal: 30
                         }}
                     >
-                        <H3 style={styles.text}>Peoples' power is stronger than the people in the power</H3>
+                        <H3 style={styles.text}>{t('home:quote')}</H3>
                     </View>
                     <View style={{ marginBottom: 80 }}>
                         <Button
@@ -39,7 +45,7 @@ class Home extends Component {
                             style={{ alignSelf: "center" }}
                             onPress={() => this.props.navigation.navigate("DrawerOpen")}
                         >
-                            <Text>Enter</Text>
+                            <Text>{t('home:action')}</Text>
                         </Button>
                     </View>
                 </ImageBackground>

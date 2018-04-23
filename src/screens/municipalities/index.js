@@ -18,9 +18,12 @@ import {
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 const defaultCover = require("../../../assets/default/tunisia_flag.png");
 
+@translate(['municipalities', 'common'], {wait: true})
 class Municipalities extends Component {
 
     constructor(props) {
@@ -30,11 +33,12 @@ class Municipalities extends Component {
             active: false,
             records: [],
             noRecords: false,
+            lang: 'en'
         };
     }
 
     getRecords() {
-        return fetch(apiUrl + 'municipalities')
+        return fetch(apiUrl + 'municipalities?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -57,10 +61,14 @@ class Municipalities extends Component {
     }
 
     componentDidMount() {
-        this.getRecords();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getRecords();
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.noRecords) {
             return (
                 <Container>
@@ -74,7 +82,7 @@ class Municipalities extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Municipalities</Title>
+                        <Title>{t('municipalities:index.title')}</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -84,7 +92,7 @@ class Municipalities extends Component {
                         alignItems: 'center'
                     }}>
                         <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
-                        <Text style={{marginTop: 10, color: '#555'}}>No municipalities until now, come back later...</Text>
+                        <Text style={{marginTop: 10, color: '#555'}}>{t('municipalities:index.no')}</Text>
                     </View>
                 </Container>
             )
@@ -101,7 +109,7 @@ class Municipalities extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Municipalities</Title>
+                    <Title>{t('municipalities:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -142,7 +150,7 @@ class Municipalities extends Component {
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                         onPress={() => data.props.navigation.navigate('MunicipalitiesDetails', {id: data.id})}>
-                                    <Text style={{color: '#F2F2F2'}}>Details</Text>
+                                    <Text style={{color: '#F2F2F2'}}>{t('common:details')}</Text>
                                 </Button>
                                 </Body>
                             </CardItem>

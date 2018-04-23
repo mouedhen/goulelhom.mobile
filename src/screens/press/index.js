@@ -19,8 +19,10 @@ import {
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 
-import moment from 'moment'
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
+@translate(['press', 'common'], {wait: true})
 class Press extends Component {
 
     constructor(props) {
@@ -30,11 +32,12 @@ class Press extends Component {
             active: false,
             records: [],
             noRecords: false,
+            lang: 'en',
         };
     }
 
     getRecords() {
-        return fetch(apiUrl + 'press')
+        return fetch(apiUrl + 'press?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -57,10 +60,14 @@ class Press extends Component {
     }
 
     componentDidMount() {
-        this.getRecords();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getRecords();
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.noRecords) {
             return (
                 <Container>
@@ -74,7 +81,7 @@ class Press extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Press</Title>
+                        <Title>{t('press:index.title')}</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -84,7 +91,7 @@ class Press extends Component {
                         alignItems: 'center'
                     }}>
                         <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
-                        <Text style={{marginTop: 10, color: '#555'}}>No article until now, come back later...</Text>
+                        <Text style={{marginTop: 10, color: '#555'}}>{t('press:index.no')}</Text>
                     </View>
                 </Container>
             )
@@ -101,7 +108,7 @@ class Press extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Press</Title>
+                    <Title>{t('press:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -133,7 +140,7 @@ class Press extends Component {
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                         onPress={() => data.props.navigation.navigate('PressDetails', {url: data.url})}>
-                                    <Text style={{color: '#F2F2F2'}}>Read Article</Text>
+                                    <Text style={{color: '#F2F2F2'}}>{t('press:index.read')}</Text>
                                 </Button>
                                 </Body>
                             </CardItem>

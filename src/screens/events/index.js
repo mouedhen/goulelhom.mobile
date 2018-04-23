@@ -26,6 +26,8 @@ import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 
 import moment from 'moment'
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -34,6 +36,7 @@ const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+@translate(['events', 'common'], {wait: true})
 class Events extends Component {
 
     constructor(props) {
@@ -50,11 +53,12 @@ class Events extends Component {
                 longitudeDelta: LONGITUDE_DELTA,
             },
             noRecords: false,
+            lang: 'en'
         };
     }
 
     getRecords() {
-        return fetch(apiUrl + 'events')
+        return fetch(apiUrl + 'events?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -88,10 +92,14 @@ class Events extends Component {
     }
 
     componentDidMount() {
-        this.getRecords();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getRecords();
+        });
     }
 
     render() {
+        const {t} = this.props;
         return (
             <Container>
                 <Header hasTabs>
@@ -104,7 +112,7 @@ class Events extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Events</Title>
+                    <Title>{t('events:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -121,8 +129,7 @@ class Events extends Component {
                                 alignItems: 'center'
                             }}>
                                 <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
-                                <Text style={{marginTop: 10, color: '#555'}}>No events until now, come back
-                                    later...</Text>
+                                <Text style={{marginTop: 10, color: '#555'}}>{t('events:details.no')}</Text>
                             </View>
                         ) : (
                             <Content style={{backgroundColor: '#f2f2f2', padding: 10}}>
@@ -153,7 +160,7 @@ class Events extends Component {
                                             <Button primary
                                                     style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                                     onPress={() => data.props.navigation.navigate('EventsDetails', {id: data.id})}>
-                                                <Text style={{color: '#F2F2F2'}}>DETAILS</Text>
+                                                <Text style={{color: '#F2F2F2'}}>{t('common:details')}</Text>
                                             </Button>
                                             </Body>
                                         </CardItem>

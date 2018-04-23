@@ -1,31 +1,26 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Root} from 'native-base'
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
+import Expo from 'expo';
+import {translate} from 'react-i18next';
+import i18n, {languageDetector} from './i18n';
 
 import SideBar from './screens/sidebar'
-
 import Home from './screens/home'
-
 import Complains from './screens/complains'
 import ComplainsDetails from './screens/complains/details'
 import ComplainsForm from './screens/complains/form'
-
 import Petitions from './screens/petitions'
 import PetitionsDetails from './screens/petitions/details'
 import PetitionsForm from './screens/petitions/form'
-
 import Events from './screens/events'
 import EventsDetails from './screens/events/details'
-
 import Municipalities from './screens/municipalities'
 import MunicipalitiesDetails from './screens/municipalities/details'
-
 import Reports from './screens/reports'
 import ReportsDetails from './screens/reports/details'
-
 import Press from './screens/press'
 import PressDetails from './screens/press/details'
-
 import Settings from './screens/settings'
 import UserSettings from './screens/settings/user'
 
@@ -34,32 +29,25 @@ import {NetInfo, Alert} from "react-native";
 const Drawer = DrawerNavigator(
     {
         Home: {screen: Home},
-
         Complains: {screen: Complains},
         ComplainsDetails: {screen: ComplainsDetails},
         ComplainsForm: {screen: ComplainsForm},
-
         Petitions: {screen: Petitions},
         PetitionsDetails: {screen: PetitionsDetails},
         PetitionsForm: {screen: PetitionsForm},
-
         Events: {screen: Events},
         EventsDetails: {screen: EventsDetails},
-
         Municipalities: {screen: Municipalities},
         MunicipalitiesDetails: {screen: MunicipalitiesDetails},
-
         Reports: {screen: Reports},
         ReportsDetails: {screen: ReportsDetails},
-
         Press: {screen: Press},
         PressDetails: {screen: PressDetails},
-
         Settings: {screen: Settings},
         UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "Petitions",
+        initialRouteName: "Home",
         contentOptions: {
             activeTintColor: "#e91e63"
         },
@@ -76,6 +64,21 @@ const AppNavigator = StackNavigator(
         headerMode: "none"
     }
 );
+
+// Wrapping a stack with translation hoc asserts we trigger new render on language change
+// the hoc is set to only trigger rerender on languageChanged
+const WrappedStack = () => {
+    return (
+        <Root>
+            <AppNavigator screenProps={{t: i18n.getFixedT()}}/>
+        </Root>
+    )
+};
+
+const ReloadAppOnLanguageChange = translate('common', {
+    bindI18n: 'languageChanged',
+    bindStore: false
+})(WrappedStack);
 
 class App extends Component {
 
@@ -111,9 +114,7 @@ class App extends Component {
 
     render() {
         return (
-            <Root>
-                <AppNavigator/>
-            </Root>
+            <ReloadAppOnLanguageChange/>
         );
     }
 }

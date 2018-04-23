@@ -25,8 +25,12 @@ import styles from "./styles";
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
+
 const defaultCover = require("../../../assets/default/tunisia_flag.png");
 
+@translate(['municipalities', 'common'], {wait: true})
 class Details extends Component {
 
     constructor(props) {
@@ -34,11 +38,12 @@ class Details extends Component {
         this.state = {
             record: null,
             haveAttachments: false,
+            lang: 'en',
         };
     }
 
     getRecord(id) {
-        return fetch(apiUrl + 'municipalities/' + id)
+        return fetch(apiUrl + 'municipalities/' + id + '?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -51,13 +56,17 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        let id = 1;
-        if (this.props.navigation.state.params !== undefined)
-            id = this.props.navigation.state.params.id;
-        this.getRecord(id);
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            let id = 1;
+            if (this.props.navigation.state.params !== undefined)
+                id = this.props.navigation.state.params.id;
+            this.getRecord(id);
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.record === null) {
             return (
                 <View style={{
@@ -66,7 +75,7 @@ class Details extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -79,7 +88,7 @@ class Details extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Municipality Details</Title>
+                    <Title>{t('municipalities:details.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -115,19 +124,21 @@ class Details extends Component {
                         }}/>
                     }
                     <Text>{this.state.record.description}</Text>
-                    <H2 style={{marginTop: 10}}>Complains List</H2>
+                    <H2 style={{marginTop: 10}}>{t('municipalities:details.list')}</H2>
 
                     <View style={{paddingBottom: 20}}>
                         <List dataArray={this.state.record.complains}
                               renderRow={(item) =>
                                   <ListItem>
                                       <Body>
-                                          <Text>{item.subject}</Text>
-                                          <Text note>{item.description}</Text>
+                                      <Text>{item.subject}</Text>
+                                      <Text note>{item.description}</Text>
                                       </Body>
 
                                       <Right>
-                                          <Icon name="arrow-forward" onPress={() => this.props.navigation.navigate('ComplainsDetails', {id: item.id})}/>
+                                          <Icon
+                                              name="arrow-forward"
+                                              onPress={() => this.props.navigation.navigate('ComplainsDetails', {id: item.id})}/>
                                       </Right>
                                   </ListItem>
                               }>

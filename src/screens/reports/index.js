@@ -20,7 +20,10 @@ import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 
 import moment from 'moment'
+import {languageDetector} from "../../i18n";
+import {translate} from "react-i18next";
 
+@translate(['reports', 'common'], {wait: true})
 class Reports extends Component {
 
     constructor(props) {
@@ -30,10 +33,12 @@ class Reports extends Component {
             active: false,
             records: [],
             noRecords: false,
+            lang: 'en',
         };
     }
+
     getRecords() {
-        return fetch(apiUrl + 'reports')
+        return fetch(apiUrl + 'reports?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -49,15 +54,20 @@ class Reports extends Component {
             })
             .catch(e => e)
     }
+
     componentDidMount() {
-        this.getRecords();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getRecords();
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.noRecords) {
             return (
                 <Container>
-                    <Header hasTabs>
+                    <Header>
                         <Left>
                             <Button
                                 transparent
@@ -67,7 +77,7 @@ class Reports extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Municipalities</Title>
+                        <Title>{t('reports:index.title')}</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -76,8 +86,8 @@ class Reports extends Component {
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
-                        <Text style={{marginTop: 10, color: '#555'}}>No reports until now, come back later...</Text>
+                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
+                        <Text style={{marginTop: 10, color: '#555'}}>{t('reports:no')}</Text>
                     </View>
                 </Container>
             )
@@ -94,7 +104,7 @@ class Reports extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Reports</Title>
+                    <Title>{t('reports:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -127,7 +137,7 @@ class Reports extends Component {
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                         onPress={() => data.props.navigation.navigate('ReportsDetails', {uri: data.document_uri})}>
-                                    <Text style={{color: '#F2F2F2'}}>READ REPORT</Text>
+                                    <Text style={{color: '#F2F2F2'}}>{t('reports:index.read')}</Text>
                                 </Button>
                                 </Body>
                             </CardItem>

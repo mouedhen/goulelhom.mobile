@@ -12,61 +12,12 @@ import {
     Badge,
 } from "native-base";
 import styles from "./style";
+import {translate} from "react-i18next";
 
 const drawerCover = require("../../../assets/static/bg.png");
 const drawerImage = require("../../../assets/static/icon.png");
 
-const data = [
-    // {
-    //     name: "Home",
-    //     route: "Home",
-    //     icon: "home",
-    //     bg: "#f2f2f2"
-    // },
-    {
-        name: "Complains",
-        route: "Complains",
-        icon: "camera",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Petitions",
-        route: "Petitions",
-        icon: "create",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Events",
-        route: "Events",
-        icon: "calendar",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Municipalities",
-        route: "Municipalities",
-        icon: "globe",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Reports",
-        route: "Reports",
-        icon: "book",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Press",
-        route: "Press",
-        icon: "chatboxes",
-        bg: "#f2f2f2"
-    },
-    {
-        name: "Settings",
-        route: "Settings",
-        icon: "settings",
-        bg: "#f2f2f2"
-    },
-];
-
+@translate(['sidebar', 'common'], { wait: true })
 class SideBar extends Component {
     constructor(props) {
         super(props);
@@ -77,6 +28,51 @@ class SideBar extends Component {
     }
 
     render() {
+        const { t, i18n, navigation } = this.props;
+        const data = [
+            {
+                name: t('sidebar:complains'),
+                route: "Complains",
+                icon: "camera",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:petitions'),
+                route: "Petitions",
+                icon: "create",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:events'),
+                route: "Events",
+                icon: "calendar",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:municipalities'),
+                route: "Municipalities",
+                icon: "globe",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:reports'),
+                route: "Reports",
+                icon: "book",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:press'),
+                route: "Press",
+                icon: "chatboxes",
+                bg: "#f2f2f2"
+            },
+            {
+                name: t('sidebar:settings'),
+                route: "Settings",
+                icon: "settings",
+                bg: "#f2f2f2"
+            },
+        ];
         return (
             <Container>
                 <Content

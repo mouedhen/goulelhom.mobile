@@ -19,7 +19,9 @@ import {
 } from "native-base";
 
 import {AsyncStorage} from "react-native"
+import {translate} from "react-i18next";
 
+@translate(['settings', 'common'], {wait: true})
 class Settings extends Component {
 
     constructor(props) {
@@ -67,6 +69,7 @@ class Settings extends Component {
     }
 
     render() {
+        const {t} = this.props;
         return (
             <Container>
                 <Header>
@@ -79,7 +82,7 @@ class Settings extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Settings</Title>
+                    <Title>{t('settings:index.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -91,26 +94,13 @@ class Settings extends Component {
                                 <Icon name="contact"/>
                             </Left>
                             <Body>
-                            <Text>Profile</Text>
+                            <Text>{t('settings:index.profile')}</Text>
                             </Body>
                             <Right>
                                 <Text>{this.state.name}</Text>
                                 <Icon name="arrow-forward" onPress={() => {
                                     this.props.navigation.navigate('UserSettings')
                                 }}/>
-                            </Right>
-                        </ListItem>
-                        <ListItem icon>
-                            <Left>
-                                <Icon name="pin"/>
-                            </Left>
-                            <Body>
-                            <Text>Geolocation</Text>
-                            </Body>
-                            <Right>
-                                <Switch
-                                    onValueChange={this.changeGeoLocate.bind(this)}
-                                    value={this.state.geoLocate}/>
                             </Right>
                         </ListItem>
 

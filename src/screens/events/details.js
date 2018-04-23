@@ -31,7 +31,10 @@ const LATITUDE_DELTA = 0.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 import moment from 'moment'
+import {languageDetector} from "../../i18n";
+import {translate} from "react-i18next";
 
+@translate(['events', 'common'], {wait: true})
 class Details extends Component {
 
     constructor(props) {
@@ -44,12 +47,13 @@ class Details extends Component {
                 longitude: LONGITUDE,
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
-            }
+            },
+            lang: 'en'
         };
     }
 
-    getComplain(id) {
-        return fetch(apiUrl + 'events/' + id)
+    getRecord(id) {
+        return fetch(apiUrl + 'events/' + id + '?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -71,13 +75,17 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        let id = 1;
-        if (this.props.navigation.state.params !== undefined)
-            id = this.props.navigation.state.params.id;
-        this.getComplain(id);
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            let id = 1;
+            if (this.props.navigation.state.params !== undefined)
+                id = this.props.navigation.state.params.id;
+            this.getRecord(id);
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.record === null) {
             return (
                 <View style={{
@@ -86,7 +94,7 @@ class Details extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -99,7 +107,7 @@ class Details extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Event Details</Title>
+                    <Title>{t('events:details.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>

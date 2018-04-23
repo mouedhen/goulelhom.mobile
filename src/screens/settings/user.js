@@ -20,7 +20,9 @@ import {ApiUtils} from '../../helpers/network'
 import {apiUrl} from "../../config";
 
 import {AsyncStorage} from "react-native"
+import {translate} from "react-i18next";
 
+@translate(['settings', 'common'], {wait: true})
 class UserForm extends Component {
 
     constructor(props) {
@@ -37,7 +39,6 @@ class UserForm extends Component {
 
     componentWillMount() {
         this.getUserData();
-            console.log(this.state)
     }
 
     storeUserData(user) {
@@ -129,6 +130,7 @@ class UserForm extends Component {
                 .then(responseJson => {
                     this.storeUserData(responseJson.data);
                     this.props.navigation.goBack(null)
+                    return;
                 })
                 .catch(e => {
                     console.log(e)
@@ -137,6 +139,7 @@ class UserForm extends Component {
     }
 
     render() {
+        const {t} = this.props;
         return (
             <Container>
                 <Header>
@@ -148,35 +151,35 @@ class UserForm extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>User Information</Title>
+                    <Title>{t('settings:form.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
                 <Content>
                     <Form>
                         <Item floatingLabel>
-                            <Label>Your name</Label>
+                            <Label>{t('settings:form.name')}</Label>
                             <Input
                                 onChangeText={(name) => this.setState({name})}
                                 value={this.state.name}
                             />
                         </Item>
                         <Item floatingLabel>
-                            <Label>Your email address</Label>
+                            <Label>{t('settings:form.name')}</Label>
                             <Input
                                 onChangeText={(email) => this.setState({email})}
                                 value={this.state.email}
                             />
                         </Item>
                         <Item floatingLabel>
-                            <Label>Your phone number</Label>
+                            <Label>{t('settings:form.email')}</Label>
                             <Input
                                 onChangeText={(phone_number) => this.setState({phone_number})}
                                 value={this.state.phone_number}
                             />
                         </Item>
                         <Item floatingLabel>
-                            <Label>Your address</Label>
+                            <Label>{t('settings:form.address')}</Label>
                             <Input
                                 multiline={true}
                                 numberOfLines={5}
@@ -187,7 +190,7 @@ class UserForm extends Component {
                         <Button primary
                                 style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                 onPress={this.submitUser.bind(this)}>
-                            <Text style={{color: '#F2F2F2'}}>SAVE</Text>
+                            <Text style={{color: '#F2F2F2'}}>{t('common:save')}</Text>
                         </Button>
                     </Form>
                 </Content>

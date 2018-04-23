@@ -15,8 +15,9 @@ import {
 } from "native-base";
 
 import styles from "./styles";
+import {translate} from "react-i18next";
 
-
+@translate(['press', 'common'], {wait: true})
 class Details extends Component {
 
     constructor(props) {
@@ -37,7 +38,7 @@ class Details extends Component {
     }
 
     render() {
-        console.log(this.state)
+        const {t} = this.props;
         if (this.state.url === null) {
             return (
                 <View style={{
@@ -46,7 +47,7 @@ class Details extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -59,7 +60,7 @@ class Details extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Read Article</Title>
+                    <Title>{t('press:details.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>

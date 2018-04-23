@@ -23,7 +23,10 @@ import styles from "./styles";
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 import moment from "moment/moment";
+import {languageDetector} from "../../i18n";
+import {translate} from "react-i18next";
 
+@translate(['petitions', 'common'], {wait: true})
 class Details extends Component {
 
     constructor(props) {
@@ -34,11 +37,12 @@ class Details extends Component {
             contact_id: null,
             haveSigned: false,
             moreSignatures: false,
+            lang: 'en'
         };
     }
 
     getRecord(id) {
-        return fetch(apiUrl + 'petitions/' + id)
+        return fetch(apiUrl + 'petitions/' + id + '?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -53,10 +57,13 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        let id = 4;
-        if (this.props.navigation.state.params !== undefined)
-            id = this.props.navigation.state.params.id;
-        this.getRecord(id);
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            let id = 4;
+            if (this.props.navigation.state.params !== undefined)
+                id = this.props.navigation.state.params.id;
+            this.getRecord(id);
+        });
     }
 
     getUserId() {
@@ -79,7 +86,7 @@ class Details extends Component {
             petition_id: this.state.record.id,
         };
         this.setState({loading: true});
-        return fetch(apiUrl + 'signatures', {
+        return fetch(apiUrl + 'signatures?lang=' + this.state.lang, {
             method: 'post',
             headers: {
                 Accept: 'application/json',
@@ -93,20 +100,21 @@ class Details extends Component {
                 this.setState({loading: false});
                 this.getRecord(this.state.record.id);
                 Toast.show({
-                    text: "Thank you for your contribution",
+                    text: this.props.t('petitions:details.success'),
                     duration: 3000
                 });
             })
             .catch(e => {
                 this.setState({loading: false});
                 Toast.show({
-                    text: "An error occurred, please try again later",
+                    text: this.props.t('petitions:details.error'),
                     duration: 3000
                 });
             })
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.record === null) {
             return (
                 <View style={{
@@ -115,7 +123,7 @@ class Details extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -128,7 +136,7 @@ class Details extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Petition Details</Title>
+                    <Title>{t('petitions:details.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -144,8 +152,8 @@ class Details extends Component {
                     {this.state.record.haveReachedObjective ? (
                         <Right><Icon name="star" style={{color: '#f1c40f'}}/></Right>) : null}
                     </Body>
-                    <Text note style={{marginTop: 10}}>Requested signatures: {this.state.record.requested_signatures_number}</Text>
-                    <Text note>Total signatures: {this.state.record.signatures}</Text>
+                    <Text note style={{marginTop: 10}}>{t('complains:details.requested_signatures')}: {this.state.record.requested_signatures_number}</Text>
+                    <Text note>{t('complains:details.total_signatures')}: {this.state.record.signatures}</Text>
                     {this.state.haveAttachments ? (
                         <View style={{height: 320}}>
                             <DeckSwiper
@@ -174,7 +182,7 @@ class Details extends Component {
                                     disabled
                                     onPress={this.signPetition.bind(this)}>
                                 <Icon name='create'/>
-                                <Text>This petition was archived</Text>
+                                <Text>{t('petitions:details.archived')}</Text>
                             </Button>
                             ) : (
                             <Button iconLeft
@@ -184,9 +192,9 @@ class Details extends Component {
                                     onPress={this.signPetition.bind(this)}>
                                 <Icon name='create'/>
                                 {this.state.haveSigned ? (
-                                    <Text>You have signed this petition</Text>
+                                    <Text>{t('petitions:details.signed')}</Text>
                                 ) : (
-                                    <Text>Sign the petition</Text>
+                                    <Text>{t('petitions:details.sign')}</Text>
                                 )}
                             </Button>
                         )}

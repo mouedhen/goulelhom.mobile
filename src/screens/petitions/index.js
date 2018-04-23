@@ -18,7 +18,10 @@ import {
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
+@translate(['petitions', 'common'], {wait: true})
 class Petitions extends Component {
 
     constructor(props) {
@@ -28,11 +31,12 @@ class Petitions extends Component {
             active: false,
             records: [],
             noRecords: false,
+            lang: 'en'
         };
     }
 
     getRecords() {
-        return fetch(apiUrl + 'petitions')
+        return fetch(apiUrl + 'petitions?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -55,10 +59,14 @@ class Petitions extends Component {
     }
 
     componentDidMount() {
-        this.getRecords();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0]
+            this.getRecords();
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.noRecords) {
             return (
                 <Container>
@@ -72,7 +80,7 @@ class Petitions extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Petitions</Title>
+                        <Title>{t('petitions:index.title')}</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -81,7 +89,7 @@ class Petitions extends Component {
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
+                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
                         <Text style={{marginTop: 10, color: '#555'}}>No article until now, come back later...</Text>
                     </View>
                 </Container>
@@ -99,9 +107,15 @@ class Petitions extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Petitions</Title>
+                    <Title>{t('petitions:index.title')}</Title>
                     </Body>
                     <Right/>
+                    <Right>
+                        <Icon
+                            onPress={() => this.props.navigation.navigate("PetitionsForm")}
+                            name="add"
+                            style={{fontSize: 30, color: '#f2f2f2', marginRight: 10}}/>
+                    </Right>
                 </Header>
 
                 <Content style={{backgroundColor: '#f2f2f2', padding: 10}}>
@@ -123,14 +137,14 @@ class Petitions extends Component {
                                             alignSelf: 'center',
                                             marginTop: 10
                                         }}/>
-                                ) : null }
+                                ) : null}
                                 <Text style={{marginTop: 10}}>
                                     {data.description}
                                 </Text>
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                         onPress={() => data.props.navigation.navigate('PetitionsDetails', {id: data.id})}>
-                                    <Text style={{color: '#F2F2F2'}}>Details</Text>
+                                    <Text style={{color: '#F2F2F2'}}>{t('common:details')}</Text>
                                 </Button>
                                 </Body>
                             </CardItem>

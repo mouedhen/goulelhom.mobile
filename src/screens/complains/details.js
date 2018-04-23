@@ -22,6 +22,8 @@ import styles from "./styles";
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -30,6 +32,7 @@ const LONGITUDE = 10.1657900;
 const LATITUDE_DELTA = 0.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+@translate(['complains', 'common'], {wait: true})
 class Details extends Component {
 
     constructor(props) {
@@ -42,12 +45,13 @@ class Details extends Component {
                 longitude: LONGITUDE,
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
-            }
+            },
+            lang: 'en'
         };
     }
 
     getComplain(id) {
-        return fetch(apiUrl + 'complains/' + id)
+        return fetch(apiUrl + 'complains/' + id + '?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -68,13 +72,17 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        let id = 1;
-        if (this.props.navigation.state.params !== undefined)
-            id = this.props.navigation.state.params.id;
-        this.getComplain(id);
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            let id = 1;
+            if (this.props.navigation.state.params !== undefined)
+                id = this.props.navigation.state.params.id;
+            this.getComplain(id);
+        });
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.complain === null) {
             return (
                 <View style={{
@@ -83,7 +91,7 @@ class Details extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -96,11 +104,10 @@ class Details extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Complain Details</Title>
+                    <Title>{t('complains:details.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
-
 
                 <Content style={{padding: 20}}>
                     <H1>{this.state.complain.subject}</H1>

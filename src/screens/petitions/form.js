@@ -35,8 +35,10 @@ import {apiUrl} from "../../config";
 import {TouchableOpacity, AsyncStorage} from "react-native";
 
 import moment from 'moment'
+import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
-
+@translate(['petitions', 'common'], {wait: true})
 class ComplainsFrom extends Component {
     constructor(props) {
         super(props);
@@ -52,6 +54,7 @@ class ComplainsFrom extends Component {
             themes: [],
             images: [],
             isEndDateTimePickerVisible: false,
+            lang: 'en'
         };
     }
 
@@ -65,8 +68,11 @@ class ComplainsFrom extends Component {
     };
 
     componentDidMount() {
-        this.getThemes().catch(e => e);
-        this.getUserId();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.getThemes().catch(e => e);
+            this.getUserId();
+        });
     }
 
     submitRecord() {
@@ -80,7 +86,7 @@ class ComplainsFrom extends Component {
             requested_signatures_number: this.state.requested_signatures_number,
         };
         this.setState({loading: true});
-        return fetch(apiUrl + 'petitions', {
+        return fetch(apiUrl + 'petitions?lang=' + this.state.lang, {
             method: 'post',
             headers: {
                 Accept: 'application/json',
@@ -101,7 +107,7 @@ class ComplainsFrom extends Component {
             .catch(e => {
                 this.setState({loading: false});
                 Toast.show({
-                    text: "An error occurred, please try again later",
+                    text: this.props.t('common:error'),
                     duration: 3000
                 });
             })
@@ -109,7 +115,7 @@ class ComplainsFrom extends Component {
 
     uploadAttachments(id, attachment) {
         const data = new FormData();
-        const url = apiUrl + 'petitions/' + id + '/upload';
+        const url = apiUrl + 'petitions/' + id + '/upload?lang=' + this.state.lang;
         let uri = attachment.uri;
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
@@ -146,7 +152,7 @@ class ComplainsFrom extends Component {
     }
 
     async getThemes() {
-        return fetch(apiUrl + 'themes')
+        return fetch(apiUrl + 'themes?lang=' + this.state.lang)
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -175,6 +181,7 @@ class ComplainsFrom extends Component {
     }
 
     render() {
+        const {t} = this.props;
         if (this.state.loading) {
             return (
                 <View style={{
@@ -183,7 +190,7 @@ class ComplainsFrom extends Component {
                     alignItems: 'center'
                 }}>
                     <Spinner color='#c0392b'/>
-                    <Text>Loading...</Text>
+                    <Text>{t('common:loading')}</Text>
                 </View>
             )
         }
@@ -196,7 +203,7 @@ class ComplainsFrom extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>New Petition</Title>
+                    <Title>{t('petitions:form.title')}</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -204,14 +211,14 @@ class ComplainsFrom extends Component {
                 <Content>
                     <Form>
                         <Item floatingLabel>
-                            <Label>Title</Label>
+                            <Label>{t('petitions:form.name')}</Label>
                             <Input
                                 onChangeText={(name) => this.setState({name})}
                                 value={this.state.name}
                             />
                         </Item>
                         <Item floatingLabel>
-                            <Label>Target (organism name)</Label>
+                            <Label>{t('petitions:form.target')}</Label>
                             <Input
                                 onChangeText={(organization) => this.setState({organization})}
                                 value={this.state.organization}
@@ -222,7 +229,7 @@ class ComplainsFrom extends Component {
                                 {this.state.end_date ? (
                                     <Label>{moment(this.state.end_date).format('L')}</Label>
                                 ) : (
-                                    <Label>Select End Date</Label>
+                                    <Label>{t('petitions:form.date')}</Label>
                                 )}
                             </TouchableOpacity>
                             <DateTimePicker
@@ -232,7 +239,7 @@ class ComplainsFrom extends Component {
                             />
                         </Item>
                         <Item style={{marginTop: 30}}>
-                            <Label>Requested Signature</Label>
+                            <Label>{t('petitions:form.signatures')}</Label>
                             <NumericInput
                                 totalWidth={calcSize(440)}
                                 totalHeight={calcSize(80)}
@@ -245,7 +252,7 @@ class ComplainsFrom extends Component {
                         </Item>
                         <Picker
                             mode="dialog"
-                            placeholder="Theme"
+                            placeholder={t('petitions:form.theme')}
                             note={false}
                             selectedValue={this.state.theme_id}
                             onValueChange={(theme_id) => this.setState({theme_id})}
@@ -256,7 +263,7 @@ class ComplainsFrom extends Component {
                             })}
                         </Picker>
                         <Item floatingLabel>
-                            <Label>Description</Label>
+                            <Label>{t('petitions:form.description')}</Label>
                             <Input
                                 onChangeText={(description) => this.setState({description})}
                                 value={this.state.description}
@@ -281,7 +288,7 @@ class ComplainsFrom extends Component {
                         <Button primary
                                 style={{alignSelf: "center", padding: 10, marginTop: 10}}
                                 onPress={this.submitRecord.bind(this)}>
-                            <Text style={{color: '#F2F2F2'}}>SUBMIT PETITION</Text>
+                            <Text style={{color: '#F2F2F2'}}>{t('petitions:form.submit')}</Text>
                         </Button>
                     </Form>
 
