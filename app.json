@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Goulel'Hom",
+    "name": "GoulelHom",
     "description": "Citizens' complains platform.",
     "slug": "goulelhom",
     "privacy": "public",
@@ -13,10 +13,10 @@
       "android"
     ],
     "ios": {
-      "bundleIdentifier": "com.rajtunisie.goulelhom"
+      "bundleIdentifier": "org.goulelhom"
     },
     "android": {
-      "package": "com.rajtunisie.goulelhom",
+      "package": "org.goulelhom",
       "icon": "./assets/logo.png"
     },
     "androidStatusBar": {

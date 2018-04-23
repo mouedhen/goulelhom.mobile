@@ -62,6 +62,7 @@ i18n
                 petitions: {
                     index: {
                         title: 'Petitions',
+                        no: 'No petitions until now, come back later...',
                     },
                     details: {
                         title: 'Petition Details',
@@ -180,6 +181,7 @@ i18n
                 petitions: {
                     index: {
                         title: 'Pétitions',
+                        no: 'Aucune pétitions jusqu\'à maintenant, revenez plus tard ...',
                     },
                     details: {
                         title: 'Détails Pétition',
@@ -247,6 +249,7 @@ i18n
                         profile: 'Profil',
                     },
                     form: {
+                        title: 'Informations Utilisateurs',
                         name: 'Votre nom et prénom',
                         email: 'Votre adresse e-mail',
                         phone: 'Votre numéro de téléphone',
@@ -297,6 +300,7 @@ i18n
                 petitions: {
                     index: {
                         title: 'العرائض',
+                        no: 'لا عرائض حتى الآن ، يرجى العودة لاحقا ...',
                     },
                     details: {
                         title: 'تفاصيل العريضة',

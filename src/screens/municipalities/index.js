@@ -124,7 +124,7 @@ class Municipalities extends Component {
                                 </Text>
                                 {data.cover ? (
                                     <Image
-                                        source={{uri: data.cover.uri}}
+                                        source={{uri: data.cover.url}}
                                         style={{
                                             backgroundColor: '#9d9d9d',
                                             height: 400,

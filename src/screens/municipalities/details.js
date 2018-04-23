@@ -103,7 +103,7 @@ class Details extends Component {
                                 dataSource={this.state.record.attachments}
                                 renderItem={item =>
                                     <Image
-                                        source={{uri: item.uri}}
+                                        source={{uri: item.url}}
                                         style={{
                                             backgroundColor: '#9d9d9d',
                                             height: 300,

@@ -83,14 +83,21 @@ class Petitions extends Component {
                         <Title>{t('petitions:index.title')}</Title>
                         </Body>
                         <Right/>
+                        <Right>
+                            <Icon
+                                onPress={() => this.props.navigation.navigate("PetitionsForm")}
+                                name="add"
+                                style={{fontSize: 30, color: '#f2f2f2', marginRight: 10}}/>
+                        </Right>
                     </Header>
                     <View style={{
                         flex: 1,
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        padding: 10
                     }}>
                         <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
-                        <Text style={{marginTop: 10, color: '#555'}}>No article until now, come back later...</Text>
+                        <Text style={{marginTop: 10, color: '#555', textAlign: 'center'}}>{t('petitions:index.no')}</Text>
                     </View>
                 </Container>
             )

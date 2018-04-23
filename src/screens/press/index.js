@@ -91,7 +91,7 @@ class Press extends Component {
                         alignItems: 'center'
                     }}>
                         <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
-                        <Text style={{marginTop: 10, color: '#555'}}>{t('press:index.no')}</Text>
+                        <Text style={{marginTop: 10, color: '#555', textAlign: 'center'}}>{t('press:index.no')}</Text>
                     </View>
                 </Container>
             )

@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e0d098a-664c-44c1-85af-3997a36689b6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/composerJson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/complains/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/complains/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/petitions/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/petitions/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/settings/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/settings/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/complains/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/complains/details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/complains/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/complains/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/events/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/events/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/municipalities/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/municipalities/details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/municipalities/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/municipalities/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/petitions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/petitions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/press/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/press/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/reports/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/reports/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,43 +24,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/settings/user.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screens/petitions/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="168" column="18" lean-forward="true" selection-start-line="163" selection-start-column="16" selection-end-line="168" selection-end-column="18" />
+            <state relative-caret-position="165">
+              <caret line="99" column="87" selection-start-line="99" selection-start-column="66" selection-end-line="99" selection-end-column="87" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
-                <element signature="n#!!block;n#componentWillMount#0;n#UserForm#0" />
-                <element signature="n#!!block;n#storeUserData#0;n#UserForm#0" />
-                <element signature="n#!!block;n#getUserData#0;n#UserForm#0" />
-                <element signature="e#2877#3739#0" />
-                <element signature="e#2925#3376#0" />
-                <element signature="e#3810#4260#0" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/complains/form.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screens/press/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="97" column="9" lean-forward="true" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screens/events/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
-              <caret line="293" column="84" selection-start-line="293" selection-start-column="43" selection-end-line="293" selection-end-column="84" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="n#!!block;n#getUserId#0;n#ComplainsFrom#0" />
-                <element signature="n#!!block;n#onRegionChange#0;n#ComplainsFrom#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/petitions/form.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="250" column="44" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="44" />
+              <caret line="132" column="95" selection-start-line="132" selection-start-column="95" selection-end-line="132" selection-end-column="95" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -65,13 +60,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/App.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+            <state relative-caret-position="291">
+              <caret line="96" column="23" lean-forward="true" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/i18n/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="302" column="37" selection-start-line="302" selection-start-column="37" selection-end-line="302" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#772#1088#0" />
+                <element signature="e#1319#2008#0" />
+                <element signature="e#3192#3476#0" />
+                <element signature="e#3510#3865#0" />
               </folding>
             </state>
           </provider>
@@ -85,6 +96,7 @@
       <find>google</find>
       <find>console</find>
       <find>detail</find>
+      <find>no</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -96,7 +108,6 @@
         <option value="$PROJECT_DIR$/App.js" />
         <option value="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/android/build.gradle" />
-        <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/src/screens/complains/index.android.js" />
         <option value="$PROJECT_DIR$/src/screens/complains/complains-details.js" />
         <option value="$PROJECT_DIR$/src/screens/complains/form1.js" />
@@ -104,11 +115,7 @@
         <option value="$PROJECT_DIR$/src/helpers/network.js" />
         <option value="$PROJECT_DIR$/src/screens/sidebar/index.js" />
         <option value="$PROJECT_DIR$/src/screens/complains/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/petitions/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/events/index.js" />
         <option value="$PROJECT_DIR$/src/screens/municipalities/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/reports/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/press/index.js" />
         <option value="$PROJECT_DIR$/src/screens/complains/details.js" />
         <option value="$PROJECT_DIR$/src/screens/events/details.js" />
         <option value="$PROJECT_DIR$/src/screens/petitions/details.js" />
@@ -119,11 +126,16 @@
         <option value="$PROJECT_DIR$/src/screens/home/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/helpers/validation.js" />
-        <option value="$PROJECT_DIR$/src/i18n/index.js" />
         <option value="$PROJECT_DIR$/src/screens/settings/user.js" />
         <option value="$PROJECT_DIR$/src/screens/complains/form.js" />
         <option value="$PROJECT_DIR$/src/screens/petitions/form.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/app.json" />
+        <option value="$PROJECT_DIR$/src/i18n/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/reports/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/events/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/petitions/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/press/index.js" />
       </list>
     </option>
   </component>
@@ -156,70 +168,71 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="helpers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="i18n" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
-              <item name="complains" type="462c0819:PsiDirectoryNode" />
+              <item name="events" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
               <item name="petitions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GoulelHom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GoulelHom" type="462c0819:PsiDirectoryNode" />
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
-              <item name="settings" type="462c0819:PsiDirectoryNode" />
+              <item name="press" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="goulelhom.mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goulelhom.mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
+              <item name="reports" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../beta/GoulelHom" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -304,11 +317,12 @@
       <workItem from="1524414398422" duration="14114000" />
       <workItem from="1524433376036" duration="21957000" />
       <workItem from="1524460623186" duration="24387000" />
+      <workItem from="1524507444630" duration="1698000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74420000" />
+    <option name="totallyTimeSpent" value="76118000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="281" width="1366" height="741" extended-state="6" />
@@ -334,10 +348,10 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="NativeScript" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.21709532" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21709532" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -353,29 +367,27 @@
       <window_info id="Designer" order="2" />
       <window_info anchor="bottom" id="NativeScript" order="7" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Image Layers" order="3" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Flutter Inspector" order="4" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Capture Tool" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info id="Storybook" order="7" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21709532" />
       <window_info anchor="right" id="Flutter Outline" order="6" />
       <window_info anchor="bottom" id="RNConsole" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="AdbCommander" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21709532" />
       <window_info anchor="right" id="SciView" order="9" />
       <window_info anchor="right" id="Database" order="10" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -383,6 +395,8 @@
       <window_info anchor="right" id="Palette&#9;" order="11" />
       <window_info anchor="right" id="Theme Preview" order="12" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
     </layout-to-restore>
   </component>
@@ -406,7 +420,6 @@
             <element signature="e#0#27#0" expanded="true" />
             <element signature="e#772#1088#0" />
             <element signature="e#1319#2008#0" />
-            <element signature="e#2037#3166#0" />
             <element signature="e#3192#3476#0" />
             <element signature="e#3510#3865#0" />
           </folding>
@@ -447,9 +460,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -467,9 +477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="49" column="47" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -493,10 +500,8 @@
           <caret line="210" column="39" selection-start-line="210" selection-start-column="39" selection-end-line="210" selection-end-column="39" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="n#!!block;n#componentDidMount#0;n#ComplainsFrom#0" />
             <element signature="n#!!block;n#getUserId#0;n#ComplainsFrom#0" />
             <element signature="n#!!block;n#onRegionChange#0;n#ComplainsFrom#0" />
-            <element signature="n#!!block;n#getMunicipalities#0;n#ComplainsFrom#0" />
           </folding>
         </state>
       </provider>
@@ -508,9 +513,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -525,21 +527,11 @@
     <entry file="file://$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" />
     <entry file="file://$PROJECT_DIR$/android/app/src/main/java/host/exp/exponent/MainApplication.java" />
     <entry file="file://$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
-    <entry file="file://$PROJECT_DIR$/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/complains/form1.js" />
     <entry file="file://$PROJECT_DIR$/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -593,16 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/petitions/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/complains/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
@@ -613,40 +595,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/events/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="101" column="31" lean-forward="true" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/municipalities/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
           <caret line="70" column="31" lean-forward="true" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="79" column="57" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/press/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="83" column="55" selection-start-line="83" selection-start-column="31" selection-end-line="83" selection-end-column="55" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -664,9 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="77" column="58" lean-forward="true" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -705,9 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
           <caret line="141" column="103" selection-start-line="141" selection-start-column="51" selection-end-line="141" selection-end-column="103" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -735,25 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="76" column="51" selection-start-line="76" selection-start-column="51" selection-end-line="76" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#1474#2592#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="758">
-          <caret line="377" column="60" selection-start-line="377" selection-start-column="60" selection-end-line="377" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#772#1088#0" />
-            <element signature="e#1319#2008#0" />
-            <element signature="e#2037#3166#0" />
-            <element signature="e#3192#3476#0" />
-            <element signature="e#3510#3865#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -764,26 +691,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/settings/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="168" column="18" lean-forward="true" selection-start-line="163" selection-start-column="16" selection-end-line="168" selection-end-column="18" />
+        <state relative-caret-position="2160">
+          <caret line="168" column="18" selection-start-line="163" selection-start-column="16" selection-end-line="168" selection-end-column="18" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
             <element signature="n#!!block;n#componentWillMount#0;n#UserForm#0" />
             <element signature="n#!!block;n#storeUserData#0;n#UserForm#0" />
             <element signature="n#!!block;n#getUserData#0;n#UserForm#0" />
-            <element signature="e#2877#3739#0" />
-            <element signature="e#2925#3376#0" />
-            <element signature="e#3810#4260#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/petitions/form.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3816">
+          <caret line="250" column="44" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
@@ -799,20 +750,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/petitions/form.js">
+    <entry file="file://$PROJECT_DIR$/src/i18n/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="250" column="44" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="44" />
+        <state relative-caret-position="187">
+          <caret line="302" column="37" selection-start-line="302" selection-start-column="37" selection-end-line="302" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#772#1088#0" />
+            <element signature="e#1319#2008#0" />
+            <element signature="e#3192#3476#0" />
+            <element signature="e#3510#3865#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/events/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="132" column="95" selection-start-line="132" selection-start-column="95" selection-end-line="132" selection-end-column="95" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/screens/petitions/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+        <state relative-caret-position="165">
+          <caret line="99" column="87" selection-start-line="99" selection-start-column="66" selection-end-line="99" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/press/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="97" column="9" lean-forward="true" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="96" column="23" lean-forward="true" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
