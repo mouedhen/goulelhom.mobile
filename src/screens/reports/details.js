@@ -52,7 +52,7 @@ class Details extends Component {
             <Container style={styles.container}>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate('Reports')}>
+                        <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>

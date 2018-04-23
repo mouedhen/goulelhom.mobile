@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, WebView} from 'react-native';
+import {Image} from 'react-native';
 import {
     View,
     Container,
@@ -19,9 +19,9 @@ import {
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 
-import moment from 'moment'
+const defaultCover = require("../../../assets/default/tunisia_flag.png");
 
-class Press extends Component {
+class Municipalities extends Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ class Press extends Component {
     }
 
     getRecords() {
-        return fetch(apiUrl + 'press')
+        return fetch(apiUrl + 'municipalities')
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -74,7 +74,7 @@ class Press extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Press</Title>
+                        <Title>Municipalities</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -84,7 +84,7 @@ class Press extends Component {
                         alignItems: 'center'
                     }}>
                         <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
-                        <Text style={{marginTop: 10, color: '#555'}}>No article until now, come back later...</Text>
+                        <Text style={{marginTop: 10, color: '#555'}}>No municipalities until now, come back later...</Text>
                     </View>
                 </Container>
             )
@@ -101,7 +101,7 @@ class Press extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Press</Title>
+                    <Title>Municipalities</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -125,15 +125,24 @@ class Press extends Component {
                                             alignSelf: 'center',
                                             marginTop: 10
                                         }}/>
-                                ) : null
+                                ) : <Image
+                                    source={defaultCover}
+                                    style={{
+                                        backgroundColor: '#9d9d9d',
+                                        height: 200,
+                                        width: '100%',
+                                        flex: 1,
+                                        alignSelf: 'center',
+                                        marginTop: 10
+                                    }}/>
                                 }
                                 <Text style={{marginTop: 10}}>
                                     {data.description}
                                 </Text>
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                        onPress={() => data.props.navigation.navigate('PressDetails', {url: data.url})}>
-                                    <Text style={{color: '#F2F2F2'}}>Read Article</Text>
+                                        onPress={() => data.props.navigation.navigate('MunicipalitiesDetails', {id: data.id})}>
+                                    <Text style={{color: '#F2F2F2'}}>Details</Text>
                                 </Button>
                                 </Body>
                             </CardItem>
@@ -145,4 +154,4 @@ class Press extends Component {
     }
 }
 
-export default Press;
+export default Municipalities;

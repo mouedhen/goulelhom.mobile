@@ -10,8 +10,15 @@ import Complains from './screens/complains'
 import ComplainsDetails from './screens/complains/details'
 import ComplainsForm from './screens/complains/form'
 
+import Petitions from './screens/petitions'
+import PetitionsDetails from './screens/petitions/details'
+import PetitionsForm from './screens/petitions/form'
+
 import Events from './screens/events'
 import EventsDetails from './screens/events/details'
+
+import Municipalities from './screens/municipalities'
+import MunicipalitiesDetails from './screens/municipalities/details'
 
 import Reports from './screens/reports'
 import ReportsDetails from './screens/reports/details'
@@ -27,20 +34,32 @@ import {NetInfo, Alert} from "react-native";
 const Drawer = DrawerNavigator(
     {
         Home: {screen: Home},
+
         Complains: {screen: Complains},
         ComplainsDetails: {screen: ComplainsDetails},
         ComplainsForm: {screen: ComplainsForm},
+
+        Petitions: {screen: Petitions},
+        PetitionsDetails: {screen: PetitionsDetails},
+        PetitionsForm: {screen: PetitionsForm},
+
         Events: {screen: Events},
         EventsDetails: {screen: EventsDetails},
+
+        Municipalities: {screen: Municipalities},
+        MunicipalitiesDetails: {screen: MunicipalitiesDetails},
+
         Reports: {screen: Reports},
         ReportsDetails: {screen: ReportsDetails},
+
         Press: {screen: Press},
         PressDetails: {screen: PressDetails},
+
         Settings: {screen: Settings},
         UserSettings: {screen: UserSettings},
     },
     {
-        initialRouteName: "Press",
+        initialRouteName: "Petitions",
         contentOptions: {
             activeTintColor: "#e91e63"
         },

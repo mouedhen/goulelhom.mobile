@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, WebView} from 'react-native';
+import {Image} from 'react-native';
 import {
     View,
     Container,
@@ -19,9 +19,7 @@ import {
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
 
-import moment from 'moment'
-
-class Press extends Component {
+class Petitions extends Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +32,7 @@ class Press extends Component {
     }
 
     getRecords() {
-        return fetch(apiUrl + 'press')
+        return fetch(apiUrl + 'petitions')
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
@@ -74,7 +72,7 @@ class Press extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title>Press</Title>
+                        <Title>Petitions</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -101,7 +99,7 @@ class Press extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>Press</Title>
+                    <Title>Petitions</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -119,21 +117,20 @@ class Press extends Component {
                                         source={{uri: data.cover.uri}}
                                         style={{
                                             backgroundColor: '#9d9d9d',
-                                            height: 400,
+                                            height: 200,
                                             width: '100%',
                                             flex: 1,
                                             alignSelf: 'center',
                                             marginTop: 10
                                         }}/>
-                                ) : null
-                                }
+                                ) : null }
                                 <Text style={{marginTop: 10}}>
                                     {data.description}
                                 </Text>
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                        onPress={() => data.props.navigation.navigate('PressDetails', {url: data.url})}>
-                                    <Text style={{color: '#F2F2F2'}}>Read Article</Text>
+                                        onPress={() => data.props.navigation.navigate('PetitionsDetails', {id: data.id})}>
+                                    <Text style={{color: '#F2F2F2'}}>Details</Text>
                                 </Button>
                                 </Body>
                             </CardItem>
@@ -145,4 +142,4 @@ class Press extends Component {
     }
 }
 
-export default Press;
+export default Petitions;

@@ -18,7 +18,7 @@ import {
     Card,
     CardItem,
 } from "native-base";
-import { MapView } from 'expo';
+import {MapView} from 'expo';
 
 import styles from "./styles";
 
@@ -48,9 +48,11 @@ class Events extends Component {
                 longitude: LONGITUDE,
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
-            }
+            },
+            noRecords: false,
         };
     }
+
     getRecords() {
         return fetch(apiUrl + 'events')
             .then(ApiUtils.checkStatus)
@@ -79,13 +81,16 @@ class Events extends Component {
                             props: this.props
                         }
                     }),
+                    noRecords: (responseJson.data.length < 1)
                 })
             })
             .catch(e => e)
     }
+
     componentDidMount() {
         this.getRecords();
     }
+
     render() {
         return (
             <Container>
@@ -109,41 +114,53 @@ class Events extends Component {
                             <Icon name="albums" style={{color: '#b71c1c'}}/>
                         </TabHeading>
                     }>
-                        <Content style={{backgroundColor: '#f2f2f2', padding: 10}}>
-                            {this.state.records.map(function (data) {
-                                return <Card key={data.id} style={{flex: 0, backgroundColor: '#fff'}}>
-                                    <CardItem>
-                                        <Body>
-                                        <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                                            {data.title}
-                                        </Text>
-                                        <Text note>Date : {moment(data.start_date).format("L")}</Text>
-                                        {data.cover ? (
-                                            <Image
-                                                source={{uri: data.cover.uri}}
-                                                style={{
-                                                    backgroundColor: '#9d9d9d',
-                                                    height: 200,
-                                                    width: '100%',
-                                                    flex: 1,
-                                                    alignSelf: 'center',
-                                                    marginTop: 10
-                                                }}/>
-                                        ) : null
-                                        }
-                                        <Text style={{marginTop: 10}}>
-                                            {data.description}
-                                        </Text>
-                                        <Button primary
-                                                style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                                onPress={() => data.props.navigation.navigate('EventsDetails', {id: data.id})}>
-                                            <Text style={{color: '#F2F2F2'}}>DETAILS</Text>
-                                        </Button>
-                                        </Body>
-                                    </CardItem>
-                                </Card>;
-                            })}
-                        </Content>
+                        {this.state.noRecords ? (
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane"/>
+                                <Text style={{marginTop: 10, color: '#555'}}>No events until now, come back
+                                    later...</Text>
+                            </View>
+                        ) : (
+                            <Content style={{backgroundColor: '#f2f2f2', padding: 10}}>
+                                {this.state.records.map(function (data) {
+                                    return <Card key={data.id} style={{flex: 0, backgroundColor: '#fff'}}>
+                                        <CardItem>
+                                            <Body>
+                                            <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                                                {data.title}
+                                            </Text>
+                                            <Text note>Date : {moment(data.start_date).format("L")}</Text>
+                                            {data.cover ? (
+                                                <Image
+                                                    source={{uri: data.cover.uri}}
+                                                    style={{
+                                                        backgroundColor: '#9d9d9d',
+                                                        height: 200,
+                                                        width: '100%',
+                                                        flex: 1,
+                                                        alignSelf: 'center',
+                                                        marginTop: 10
+                                                    }}/>
+                                            ) : null
+                                            }
+                                            <Text style={{marginTop: 10}}>
+                                                {data.description}
+                                            </Text>
+                                            <Button primary
+                                                    style={{alignSelf: "center", padding: 10, marginTop: 10}}
+                                                    onPress={() => data.props.navigation.navigate('EventsDetails', {id: data.id})}>
+                                                <Text style={{color: '#F2F2F2'}}>DETAILS</Text>
+                                            </Button>
+                                            </Body>
+                                        </CardItem>
+                                    </Card>;
+                                })}
+                            </Content>
+                        )}
                     </Tab>
                     <Tab heading={
                         <TabHeading style={{backgroundColor: '#F2F2F2'}}>

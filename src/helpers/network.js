@@ -1,5 +1,6 @@
 let ApiUtils = {
     checkStatus: function (response) {
+        // console.log(response)
         if (response.ok) {
             return response;
         } else {

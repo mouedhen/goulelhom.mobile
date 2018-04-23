@@ -69,7 +69,7 @@ class Settings extends Component {
     render() {
         return (
             <Container>
-                <Header hasTabs>
+                <Header>
                     <Left>
                         <Button
                             transparent

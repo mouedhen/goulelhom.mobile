@@ -29,6 +29,7 @@ class Reports extends Component {
             modalVisible: true,
             active: false,
             records: [],
+            noRecords: false,
         };
     }
     getRecords() {
@@ -43,6 +44,7 @@ class Reports extends Component {
                             props: this.props
                         }
                     }),
+                    noRecords: (responseJson.data.length < 1)
                 })
             })
             .catch(e => e)
@@ -52,9 +54,37 @@ class Reports extends Component {
     }
 
     render() {
+        if (this.state.noRecords) {
+            return (
+                <Container>
+                    <Header hasTabs>
+                        <Left>
+                            <Button
+                                transparent
+                                onPress={() => this.props.navigation.navigate("DrawerOpen")}
+                            >
+                                <Icon name="ios-menu"/>
+                            </Button>
+                        </Left>
+                        <Body>
+                        <Title>Municipalities</Title>
+                        </Body>
+                        <Right/>
+                    </Header>
+                    <View style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Icon style={{fontSize: 60, color: '#555'}} name="paper-plane" />
+                        <Text style={{marginTop: 10, color: '#555'}}>No reports until now, come back later...</Text>
+                    </View>
+                </Container>
+            )
+        }
         return (
             <Container>
-                <Header hasTabs>
+                <Header>
                     <Left>
                         <Button
                             transparent

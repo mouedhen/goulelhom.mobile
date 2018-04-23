@@ -22,93 +22,94 @@ import {
     Thumbnail,
     Grid,
     Col,
+    Toast,
 } from "native-base";
 
-// import ImagePicker from 'react-native-image-picker';
 import {ImagePicker} from 'expo'
-//import MapView from 'react-native-maps';
-import {MapView} from 'expo';
+import NumericInput, {calcSize} from 'react-native-numeric-input'
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import styles from "./styles";
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
-import {Dimensions, AsyncStorage} from "react-native";
+import {TouchableOpacity, AsyncStorage} from "react-native";
 
-let {width, height} = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE = 36.8189700;
-const LONGITUDE = 10.1657900;
-const LATITUDE_DELTA = 0.02;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+import moment from 'moment'
+
 
 class ComplainsFrom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contact_id: -1,
-            theme_id: null,
-            municipality_id: null,
-            subject: '',
+            end_date: null,
+            name: '',
             description: '',
-            latitude: null,
-            longitude: null,
-            region: {
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-            },
-            images: [],
-            videos: [],
-            municipalities: [],
-            themes: [],
+            theme_id: null,
+            contact_id: null,
+            organization: '',
+            requested_signatures_number: '',
             loading: false,
+            themes: [],
+            images: [],
+            isEndDateTimePickerVisible: false,
         };
     }
 
+    _showDateTimePicker = () => this.setState({isEndDateTimePickerVisible: true});
+    _hideDateTimePicker = () => this.setState({isEndDateTimePickerVisible: false});
+    _handleDatePicked = (date) => {
+        this.setState({
+            end_date: date
+        });
+        this._hideDateTimePicker();
+    };
+
     componentDidMount() {
-        this.getMunicipalities().catch(e => e);
         this.getThemes().catch(e => e);
-        this.locateUser();
         this.getUserId();
     }
 
-    submitComplain() {
-        let complain = {
-            contact_id: this.state.contact_id,
-            theme_id: this.state.theme_id,
-            municipality_id: this.state.municipality_id,
-            subject: this.state.subject,
+    submitRecord() {
+        let record = {
+            name: this.state.name,
             description: this.state.description,
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude,
+            end_date: moment(this.state.end_date).format(),
+            theme_id: this.state.theme_id,
+            contact_id: this.state.contact_id,
+            organization: this.state.organization,
+            requested_signatures_number: this.state.requested_signatures_number,
         };
         this.setState({loading: true});
-        return fetch(apiUrl + 'complains', {
+        return fetch(apiUrl + 'petitions', {
             method: 'post',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(complain)
+            body: JSON.stringify(record)
         })
             .then(ApiUtils.checkStatus)
             .then(response => response.json())
             .then(responseJson => {
                 this.state.images.forEach(attachment => {
-                    this.uploadComplainsAttachment(responseJson.data.id, attachment)
+                    this.uploadAttachments(responseJson.data.id, attachment)
                 });
                 this.setState({loading: false});
-                this.props.navigation.navigate('ComplainsDetails', {id: responseJson.data.id})
+                this.props.navigation.navigate('PetitionsDetails', {id: responseJson.data.id})
+                return
             })
             .catch(e => {
                 this.setState({loading: false});
+                Toast.show({
+                    text: "An error occurred, please try again later",
+                    duration: 3000
+                });
             })
     }
 
-    uploadComplainsAttachment(id, attachment) {
+    uploadAttachments(id, attachment) {
         const data = new FormData();
-        const url = apiUrl + 'complains/' + id + '/upload';
+        const url = apiUrl + 'petitions/' + id + '/upload';
         let uri = attachment.uri;
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
@@ -144,49 +145,6 @@ class ComplainsFrom extends Component {
             });
     }
 
-    locateUser() {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({
-                    region: {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        latitudeDelta: LATITUDE_DELTA,
-                        longitudeDelta: LONGITUDE_DELTA,
-                    },
-                });
-            },
-            (error) => {
-                // console.log(error.message)
-            },
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-        );
-    }
-
-    onRegionChange(region) {
-        this.setState({
-            region: {
-                latitude: region.latitude,
-                longitude: region.longitude,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-            },
-        });
-    }
-
-    async getMunicipalities() {
-        return fetch(apiUrl + 'municipalities')
-            .then(ApiUtils.checkStatus)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({
-                    municipalities: responseJson.data,
-                    municipality_id: (responseJson.data[0] ? responseJson.data[0].id : null)
-                })
-            })
-            .catch(e => e)
-    }
-
     async getThemes() {
         return fetch(apiUrl + 'themes')
             .then(ApiUtils.checkStatus)
@@ -194,7 +152,7 @@ class ComplainsFrom extends Component {
             .then(responseJson => {
                 this.setState({
                     themes: responseJson.data,
-                    theme_id: (responseJson.data[0] ? responseJson.data[0].id : null)
+                    theme_id: (responseJson.data[0] ? responseJson.data[0].id : null),
                 })
             })
             .catch(e => e)
@@ -238,7 +196,7 @@ class ComplainsFrom extends Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>New Complain</Title>
+                    <Title>New Petition</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -246,10 +204,43 @@ class ComplainsFrom extends Component {
                 <Content>
                     <Form>
                         <Item floatingLabel>
-                            <Label>Subject</Label>
+                            <Label>Title</Label>
                             <Input
-                                onChangeText={(subject) => this.setState({subject})}
-                                value={this.state.subject}
+                                onChangeText={(name) => this.setState({name})}
+                                value={this.state.name}
+                            />
+                        </Item>
+                        <Item floatingLabel>
+                            <Label>Target (organism name)</Label>
+                            <Input
+                                onChangeText={(organization) => this.setState({organization})}
+                                value={this.state.organization}
+                            />
+                        </Item>
+                        <Item style={{marginTop: 30}}>
+                            <TouchableOpacity onPress={this._showDateTimePicker}>
+                                {this.state.end_date ? (
+                                    <Label>{moment(this.state.end_date).format('L')}</Label>
+                                ) : (
+                                    <Label>Select End Date</Label>
+                                )}
+                            </TouchableOpacity>
+                            <DateTimePicker
+                                isVisible={this.state.isEndDateTimePickerVisible}
+                                onConfirm={this._handleDatePicked}
+                                onCancel={this._hideDateTimePicker}
+                            />
+                        </Item>
+                        <Item style={{marginTop: 30}}>
+                            <Label>Requested Signature</Label>
+                            <NumericInput
+                                totalWidth={calcSize(440)}
+                                totalHeight={calcSize(80)}
+                                iconSize={calcSize(25)}
+                                step={1}
+                                valueType='real'
+                                minValue={0}
+                                onChange={requested_signatures_number => this.setState({requested_signatures_number})}
                             />
                         </Item>
                         <Picker
@@ -264,25 +255,13 @@ class ComplainsFrom extends Component {
                                 return <Picker.Item label={data.name} value={data.id} key={data.id}/>;
                             })}
                         </Picker>
-                        <Picker
-                            mode="dialog"
-                            placeholder="Municipality"
-                            note={false}
-                            selectedValue={this.state.municipality_id}
-                            onValueChange={(municipality_id) => this.setState({municipality_id})}
-                            style={{marginTop: 10, marginHorizontal: 10}}
-                        >
-                            {this.state.municipalities.map(function (data) {
-                                return <Picker.Item label={data.name} value={data.id} key={data.id}/>;
-                            })}
-                        </Picker>
                         <Item floatingLabel>
                             <Label>Description</Label>
                             <Input
                                 onChangeText={(description) => this.setState({description})}
                                 value={this.state.description}
                                 multiline={true}
-                                numberOfLines={3}
+                                numberOfLines={6}
                             />
                         </Item>
                         <Grid style={{marginTop: 10}}>
@@ -299,28 +278,10 @@ class ComplainsFrom extends Component {
                                 </Button>
                             </Col>
                         </Grid>
-
-                        <MapView
-                            style={styles.mapForm}
-                            showsUserLocation={true}
-                            showsMyLocationButton={false}
-                            loadingEnabled={true}
-                            region={this.state.region}
-                            onLongPress={(e) => this.onRegionChange(e.nativeEvent.coordinate)}
-                        >
-                            <MapView.Marker coordinate={this.state.region}/>
-                            <MapView.Circle
-                                radius={600}
-                                strokeColor={'#74b9ff'}
-                                fillColor={'#74b9ff'}
-                                center={this.state.region}
-                            />
-                        </MapView>
-
                         <Button primary
                                 style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                onPress={this.submitComplain.bind(this)}>
-                            <Text style={{color: '#F2F2F2'}}>SUBMIT COMPLAIN</Text>
+                                onPress={this.submitRecord.bind(this)}>
+                            <Text style={{color: '#F2F2F2'}}>SUBMIT PETITION</Text>
                         </Button>
                     </Form>
 
