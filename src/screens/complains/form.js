@@ -21,7 +21,7 @@ import {
     ListItem,
     Thumbnail,
     Grid,
-    Col,
+    Col, Toast,
 } from "native-base";
 
 // import ImagePicker from 'react-native-image-picker';
@@ -68,7 +68,30 @@ class ComplainsFrom extends Component {
             loading: false,
             lang: 'en',
             isRTL: false,
+            validation: {
+                subject: true,
+                municipality_id: true,
+                theme_id: true,
+                description: true,
+            }
         };
+    }
+
+    validForm() {
+        this.setState({
+            validation: {
+                subject: (this.state.subject !== '' && this.state.subject !== null),
+                municipality_id: (Number.isInteger(this.state.municipality_id) && this.state.municipality_id > 0),
+                theme_id: (Number.isInteger(this.state.theme_id) && this.state.theme_id > 0),
+                description: (this.state.description !== '' && this.state.description !== null),
+            }
+        });
+        return (
+            this.state.validation.subject &&
+            this.state.validation.municipality_id &&
+            this.state.validation.theme_id &&
+            this.state.description
+        )
     }
 
     componentDidMount() {
@@ -83,6 +106,14 @@ class ComplainsFrom extends Component {
     }
 
     submitComplain() {
+        if (!this.validForm()) {
+            Toast.show({
+                text: this.props.t('common:validation'),
+                type: "danger"
+            });
+            return;
+        }
+
         let complain = {
             contact_id: this.state.contact_id,
             theme_id: this.state.theme_id,
@@ -206,7 +237,12 @@ class ComplainsFrom extends Component {
                     theme_id: (responseJson.data[0] ? responseJson.data[0].id : null)
                 })
             })
-            .catch(e => e)
+            .catch(e => {
+                Toast.show({
+                    text: this.props.t('common:validation'),
+                    type: "danger"
+                });
+            })
     }
 
     attachFromGallery() {
@@ -244,7 +280,7 @@ class ComplainsFrom extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back"}/>
                         </Button>
                     </Left>
                     <Body>
@@ -253,9 +289,9 @@ class ComplainsFrom extends Component {
                     <Right/>
                 </Header>
 
-                <Content>
+                <Content style={{padding: 10}}>
                     <Form>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.subject)}>
                             <Label>{t('complains:form.subject')}</Label>
                             <Input
                                 onChangeText={(subject) => this.setState({subject})}
@@ -274,6 +310,7 @@ class ComplainsFrom extends Component {
                                 return <Picker.Item label={data.name} value={data.id} key={data.id}/>;
                             })}
                         </Picker>
+
                         <Picker
                             mode="dialog"
                             placeholder={t('complains:form.municipality')}
@@ -286,7 +323,7 @@ class ComplainsFrom extends Component {
                                 return <Picker.Item label={data.name} value={data.id} key={data.id}/>;
                             })}
                         </Picker>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.description)}>
                             <Label>{t('complains:form.description')}</Label>
                             <Input
                                 onChangeText={(description) => this.setState({description})}

@@ -141,6 +141,7 @@ i18n
                     loading: 'Loading...',
                     error: 'An error occurred, please try again later',
                     save: 'Save',
+                    validation: 'Please check your parameters...',
                 },
             },
             fr: {
@@ -257,6 +258,7 @@ i18n
                     loading: 'Chargement...',
                     error: 'Une erreur est survenue, veuillez réessayer plus tard',
                     save: 'Sauvegarder',
+                    validation: 'Merci de vérifier vos paramètres...',
                 },
             },
             ar: {
@@ -373,6 +375,7 @@ i18n
                     loading: 'جاري التحميل',
                     error: 'حدث خطأ ، يرجى المحاولة مرة أخرى في وقت لاحق',
                     save: 'حفظ',
+                    validation: 'يرجى التحقق من المعلمات ...',
                 },
             }
         },

@@ -14,14 +14,16 @@ import {
     Label,
     Input,
     Text,
+    Toast,
 } from 'native-base'
 
 import {ApiUtils} from '../../helpers/network'
 import {apiUrl} from "../../config";
 
-import {AsyncStorage} from "react-native"
+import {AsyncStorage, TextInput} from "react-native"
 import {translate} from "react-i18next";
 import {languageDetector} from "../../i18n";
+import {checkEmail} from "../../helpers/validation";
 
 @translate(['settings', 'common'], {wait: true})
 class UserForm extends Component {
@@ -37,7 +39,21 @@ class UserForm extends Component {
             loading: false,
             lang: 'en',
             isRTL: false,
+            validation: {
+                name: true,
+                email: true,
+            }
         }
+    }
+
+    validForm() {
+        this.setState({
+            validation: {
+                name: (this.state.name !== null && this.state.name !== ''),
+                email: checkEmail(this.state.email),
+            }
+        });
+        return (this.state.validation.name && this.state.validation.email)
     }
 
     componentWillMount() {
@@ -95,6 +111,13 @@ class UserForm extends Component {
     }
 
     submitUser() {
+        if (!this.validForm()) {
+            Toast.show({
+                text: this.props.t('common:validation'),
+                type: "danger"
+            });
+            return;
+        }
         if (this.state.id === -1) {
             return fetch(apiUrl + 'contacts', {
                 method: 'post',
@@ -136,11 +159,13 @@ class UserForm extends Component {
                 .then(response => response.json())
                 .then(responseJson => {
                     this.storeUserData(responseJson.data);
-                    this.props.navigation.goBack(null)
-                    return;
+                    this.props.navigation.goBack(null);
                 })
                 .catch(e => {
-                    console.log(e)
+                    Toast.show({
+                        text: this.props.t('common:validation'),
+                        type: "danger"
+                    });
                 })
         }
     }
@@ -162,27 +187,30 @@ class UserForm extends Component {
                     </Body>
                     <Right/>
                 </Header>
-                <Content>
+                <Content style={{padding: 10}}>
                     <Form>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.name)}>
                             <Label>{t('settings:form.name')}</Label>
                             <Input
                                 onChangeText={(name) => this.setState({name})}
                                 value={this.state.name}
                             />
                         </Item>
-                        <Item floatingLabel>
-                            <Label>{t('settings:form.name')}</Label>
+                        <Item floatingLabel error={(!this.state.validation.email)}>
+                            <Label>{t('settings:form.email')}</Label>
                             <Input
                                 onChangeText={(email) => this.setState({email})}
                                 value={this.state.email}
                             />
                         </Item>
-                        <Item floatingLabel>
-                            <Label>{t('settings:form.email')}</Label>
-                            <Input
+                        <Item stackedLabel>
+                            <Label>{t('settings:form.phone')}</Label>
+                            <TextInput
+                                style={{height: 50, fontSize: 18, width: '100%'}}
                                 onChangeText={(phone_number) => this.setState({phone_number})}
                                 value={this.state.phone_number}
+                                maxLength = {8}
+                                keyboardType={'phone-pad'}
                             />
                         </Item>
                         <Item floatingLabel>

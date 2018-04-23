@@ -49,19 +49,49 @@ class ComplainsFrom extends Component {
             theme_id: null,
             contact_id: null,
             organization: '',
-            requested_signatures_number: '',
+            requested_signatures_number: 0,
             loading: false,
             themes: [],
             images: [],
             isEndDateTimePickerVisible: false,
             lang: 'en',
             isRTL: false,
+            validation: {
+                end_date: true,
+                name: true,
+                description: true,
+                theme_id: true,
+                organization: true,
+                requested_signatures_number: true,
+            }
         };
+    }
+
+    validForm() {
+        this.setState({
+            validation: {
+                end_date: (this.state.end_date !== null),
+                name: (this.state.name !== '' && this.state.name !== null),
+                theme_id: (Number.isInteger(this.state.theme_id) && this.state.theme_id > 0),
+                requested_signatures_number: (Number.isInteger(this.state.requested_signatures_number) && this.state.requested_signatures_number > 0),
+                organization: (this.state.organization !== '' && this.state.organization !== null),
+                description: (this.state.description !== '' && this.state.description !== null),
+            }
+        });
+        return (
+            this.state.validation.end_date &&
+            this.state.validation.name &&
+            this.state.validation.theme_id &&
+            this.state.validation.requested_signatures_number &&
+            this.state.validation.organization &&
+            this.state.description
+        )
     }
 
     _showDateTimePicker = () => this.setState({isEndDateTimePickerVisible: true});
     _hideDateTimePicker = () => this.setState({isEndDateTimePickerVisible: false});
     _handleDatePicked = (date) => {
+        console.log(moment().isSameOrBefore(moment(date)))
         this.setState({
             end_date: date
         });
@@ -78,6 +108,14 @@ class ComplainsFrom extends Component {
     }
 
     submitRecord() {
+        if (!this.validForm()) {
+            Toast.show({
+                text: this.props.t('common:validation'),
+                type: "danger"
+            });
+            return;
+        }
+
         let record = {
             name: this.state.name,
             description: this.state.description,
@@ -210,23 +248,23 @@ class ComplainsFrom extends Component {
                     <Right/>
                 </Header>
 
-                <Content>
+                <Content style={{padding: 10}}>
                     <Form>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.name)}>
                             <Label>{t('petitions:form.name')}</Label>
                             <Input
                                 onChangeText={(name) => this.setState({name})}
                                 value={this.state.name}
                             />
                         </Item>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.organization)}>
                             <Label>{t('petitions:form.target')}</Label>
                             <Input
                                 onChangeText={(organization) => this.setState({organization})}
                                 value={this.state.organization}
                             />
                         </Item>
-                        <Item style={{marginTop: 30}}>
+                        <Item style={{marginTop: 30}} error={(!this.state.validation.end_date)}>
                             <TouchableOpacity onPress={this._showDateTimePicker}>
                                 {this.state.end_date ? (
                                     <Label>{moment(this.state.end_date).format('L')}</Label>
@@ -264,7 +302,7 @@ class ComplainsFrom extends Component {
                                 return <Picker.Item label={data.name} value={data.id} key={data.id}/>;
                             })}
                         </Picker>
-                        <Item floatingLabel>
+                        <Item floatingLabel error={(!this.state.validation.description)}>
                             <Label>{t('petitions:form.description')}</Label>
                             <Input
                                 onChangeText={(description) => this.setState({description})}

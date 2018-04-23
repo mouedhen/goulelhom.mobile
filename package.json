@@ -33,7 +33,6 @@
     "react-native-modal": "^5.4.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-numeric-input": "^1.3.0",
-    "react-native-phone-input": "^0.2.1",
     "react-navigation": "^1.5.11"
   }
 }
