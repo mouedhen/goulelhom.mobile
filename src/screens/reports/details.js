@@ -16,6 +16,7 @@ import {
 
 import styles from "./styles";
 import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 @translate(['reports', 'common'], {wait: true})
 class Details extends Component {
@@ -23,18 +24,24 @@ class Details extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uri: null
+            uri: null,
+            lang: 'en',
+            isRTL: false,
         };
     }
 
     componentDidMount() {
-        // TODO redirect on uri not defined
-        let uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + 'http://www.africau.edu/images/default/sample.pdf';
-        if (this.props.navigation.state.params !== undefined)
-            uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + this.props.navigation.state.params.uri;
-        this.setState({
-            uri
-        })
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
+            // TODO redirect on uri not defined
+            let uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + 'http://www.africau.edu/images/default/sample.pdf';
+            if (this.props.navigation.state.params !== undefined)
+                uri = 'https://drive.google.com/viewerng/viewer?embedded=true&url=' + this.props.navigation.state.params.uri;
+            this.setState({
+                uri
+            })
+        });
     }
 
     render() {
@@ -56,7 +63,7 @@ class Details extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>

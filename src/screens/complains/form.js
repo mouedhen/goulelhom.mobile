@@ -66,13 +66,15 @@ class ComplainsFrom extends Component {
             municipalities: [],
             themes: [],
             loading: false,
-            lang: 'en'
+            lang: 'en',
+            isRTL: false,
         };
     }
 
     componentDidMount() {
         languageDetector.detect((lang) => {
             this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
             this.getMunicipalities().catch(e => e);
             this.getThemes().catch(e => e);
             this.locateUser();
@@ -242,7 +244,7 @@ class ComplainsFrom extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>

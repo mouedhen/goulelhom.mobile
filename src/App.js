@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Root} from 'native-base'
 import {StackNavigator, DrawerNavigator} from 'react-navigation'
-import Expo from 'expo';
 import {translate} from 'react-i18next';
-import i18n, {languageDetector} from './i18n';
+import i18n from './i18n';
 
 import SideBar from './screens/sidebar'
 import Home from './screens/home'
@@ -65,8 +64,6 @@ const AppNavigator = StackNavigator(
     }
 );
 
-// Wrapping a stack with translation hoc asserts we trigger new render on language change
-// the hoc is set to only trigger rerender on languageChanged
 const WrappedStack = () => {
     return (
         <Root>

@@ -16,6 +16,7 @@ import {
 
 import styles from "./styles";
 import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 @translate(['press', 'common'], {wait: true})
 class Details extends Component {
@@ -23,18 +24,23 @@ class Details extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: null
+            url: null,
+            lang: 'en',
+            isRTL: false,
         };
     }
 
     componentDidMount() {
-        // TODO redirect on url not defined
-        let url = 'https://www.goulelhom.org/';
-        if (this.props.navigation.state.params !== undefined)
-            url = this.props.navigation.state.params.url;
-        this.setState({
-            url
-        })
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
+            let url = 'https://www.goulelhom.org/';
+            if (this.props.navigation.state.params !== undefined)
+                url = this.props.navigation.state.params.url;
+            this.setState({
+                url
+            })
+        });
     }
 
     render() {
@@ -56,7 +62,7 @@ class Details extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>

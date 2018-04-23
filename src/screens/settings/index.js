@@ -20,6 +20,7 @@ import {
 
 import {AsyncStorage} from "react-native"
 import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 @translate(['settings', 'common'], {wait: true})
 class Settings extends Component {
@@ -29,6 +30,8 @@ class Settings extends Component {
         this.state = {
             geoLocate: true,
             name: '',
+            lang: 'en',
+            isRTL: false,
         };
     }
 
@@ -55,8 +58,12 @@ class Settings extends Component {
     }
 
     componentWillMount() {
-        this.getName();
-        this.getIsGeoLocalisable();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
+            this.getName();
+            this.getIsGeoLocalisable();
+        });
     }
 
     changeGeoLocate(value) {
@@ -98,7 +105,7 @@ class Settings extends Component {
                             </Body>
                             <Right>
                                 <Text>{this.state.name}</Text>
-                                <Icon name="arrow-forward" onPress={() => {
+                                <Icon name={this.state.isRTL ? "arrow-back" : "arrow-forward"} onPress={() => {
                                     this.props.navigation.navigate('UserSettings')
                                 }}/>
                             </Right>

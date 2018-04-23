@@ -21,6 +21,7 @@ import {apiUrl} from "../../config";
 
 import {AsyncStorage} from "react-native"
 import {translate} from "react-i18next";
+import {languageDetector} from "../../i18n";
 
 @translate(['settings', 'common'], {wait: true})
 class UserForm extends Component {
@@ -34,11 +35,17 @@ class UserForm extends Component {
             email: '',
             address: '',
             loading: false,
+            lang: 'en',
+            isRTL: false,
         }
     }
 
     componentWillMount() {
-        this.getUserData();
+        languageDetector.detect((lang) => {
+            this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
+            this.getUserData();
+        });
     }
 
     storeUserData(user) {
@@ -147,7 +154,7 @@ class UserForm extends Component {
                         <Button transparent onPress={() => {
                             this.props.navigation.goBack(null)
                         }}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>

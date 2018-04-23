@@ -39,6 +39,7 @@ class Details extends Component {
             record: null,
             haveAttachments: false,
             lang: 'en',
+            isRTL: false,
         };
     }
 
@@ -58,6 +59,7 @@ class Details extends Component {
     componentDidMount() {
         languageDetector.detect((lang) => {
             this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
             let id = 1;
             if (this.props.navigation.state.params !== undefined)
                 id = this.props.navigation.state.params.id;
@@ -84,7 +86,7 @@ class Details extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>
@@ -137,7 +139,7 @@ class Details extends Component {
 
                                       <Right>
                                           <Icon
-                                              name="arrow-forward"
+                                              name={this.state.isRTL ? "arrow-back" : "arrow-forward" }
                                               onPress={() => this.props.navigation.navigate('ComplainsDetails', {id: item.id})}/>
                                       </Right>
                                   </ListItem>

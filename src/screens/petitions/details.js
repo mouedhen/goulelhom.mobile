@@ -22,7 +22,6 @@ import styles from "./styles";
 
 import {ApiUtils} from "../../helpers/network";
 import {apiUrl} from "../../config";
-import moment from "moment/moment";
 import {languageDetector} from "../../i18n";
 import {translate} from "react-i18next";
 
@@ -37,7 +36,8 @@ class Details extends Component {
             contact_id: null,
             haveSigned: false,
             moreSignatures: false,
-            lang: 'en'
+            lang: 'en',
+            isRTL: false,
         };
     }
 
@@ -59,6 +59,7 @@ class Details extends Component {
     componentDidMount() {
         languageDetector.detect((lang) => {
             this.state.lang = lang.split("-")[0];
+            this.state.isRTL = (this.state.lang === 'ar');
             let id = 4;
             if (this.props.navigation.state.params !== undefined)
                 id = this.props.navigation.state.params.id;
@@ -132,7 +133,7 @@ class Details extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack(null)}>
-                            <Icon name="arrow-back"/>
+                            <Icon name={this.state.isRTL ? "arrow-forward" : "arrow-back" }/>
                         </Button>
                     </Left>
                     <Body>
