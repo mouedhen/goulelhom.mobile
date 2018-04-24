@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5e0d098a-664c-44c1-85af-3997a36689b6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/reports/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/reports/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+            <state relative-caret-position="272">
+              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -35,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -93,8 +92,8 @@
         <option value="$PROJECT_DIR$/src/screens/events/index.js" />
         <option value="$PROJECT_DIR$/src/screens/petitions/index.js" />
         <option value="$PROJECT_DIR$/src/screens/press/index.js" />
-        <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/src/screens/reports/index.js" />
+        <option value="$PROJECT_DIR$/app.json" />
       </list>
     </option>
   </component>
@@ -277,12 +276,12 @@
       <workItem from="1524433376036" duration="21957000" />
       <workItem from="1524460623186" duration="24387000" />
       <workItem from="1524507444630" duration="2301000" />
-      <workItem from="1524572731302" duration="399000" />
+      <workItem from="1524572731302" duration="558000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77120000" />
+    <option name="totallyTimeSpent" value="77279000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="281" width="1366" height="741" extended-state="6" />
@@ -714,13 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/reports/details.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -738,6 +730,13 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
         </state>
       </provider>
     </entry>
