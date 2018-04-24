@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e0d098a-664c-44c1-85af-3997a36689b6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/complains/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/complains/details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/complains/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/complains/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/events/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/events/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/municipalities/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/municipalities/details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/municipalities/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/municipalities/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/petitions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/petitions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/press/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/press/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/reports/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/reports/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="5e0d098a-664c-44c1-85af-3997a36689b6" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,8 +50,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="96" column="23" lean-forward="true" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
+            <state relative-caret-position="219">
+              <caret line="92" column="28" lean-forward="true" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -317,16 +304,15 @@
       <workItem from="1524414398422" duration="14114000" />
       <workItem from="1524433376036" duration="21957000" />
       <workItem from="1524460623186" duration="24387000" />
-      <workItem from="1524507444630" duration="1698000" />
+      <workItem from="1524507444630" duration="2301000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76118000" />
+    <option name="totallyTimeSpent" value="76721000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="281" width="1366" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -796,8 +782,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/reports/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="96" column="23" lean-forward="true" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
+        <state relative-caret-position="219">
+          <caret line="92" column="28" lean-forward="true" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="28" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
