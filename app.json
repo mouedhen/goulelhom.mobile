@@ -18,7 +18,7 @@
     "android": {
       "package": "com.rajtunisie.goulelhom",
       "icon": "./assets/logo.png",
-      "versionCode": 2,
+      "versionCode": 3,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBOOhNApCEqJLiP3UXSGHk0iJvA97cHfqM"
