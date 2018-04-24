@@ -5,7 +5,7 @@
     "slug": "goulelhom",
     "privacy": "public",
     "sdkVersion": "26.0.0",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "primaryColor": "#b71c1c",
     "icon": "./assets/logo.png",
     "platforms": [
@@ -13,11 +13,12 @@
       "android"
     ],
     "ios": {
-      "bundleIdentifier": "org.goulelhom"
+      "bundleIdentifier": "com.rajtunisie.goulelhom"
     },
     "android": {
-      "package": "org.goulelhom",
+      "package": "com.rajtunisie.goulelhom",
       "icon": "./assets/logo.png",
+      "versionCode": 2,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBOOhNApCEqJLiP3UXSGHk0iJvA97cHfqM"
