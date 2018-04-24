@@ -121,7 +121,7 @@ class Reports extends Component {
                                 <Text note>Date : {moment(data.published_at).format("L")}</Text>
                                 {data.thumb_uri ? (
                                     <Image
-                                        source={{uri: data.thumb_uri}}
+                                        source={{uri: data.thumb}}
                                         style={{
                                             backgroundColor: '#9d9d9d',
                                             height: 400,
@@ -137,7 +137,7 @@ class Reports extends Component {
                                 </Text>
                                 <Button primary
                                         style={{alignSelf: "center", padding: 10, marginTop: 10}}
-                                        onPress={() => data.props.navigation.navigate('ReportsDetails', {uri: data.document_uri})}>
+                                        onPress={() => data.props.navigation.navigate('ReportsDetails', {uri: data.document})}>
                                     <Text style={{color: '#F2F2F2'}}>{t('reports:index.read')}</Text>
                                 </Button>
                                 </Body>
